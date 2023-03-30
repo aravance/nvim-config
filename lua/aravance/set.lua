@@ -28,3 +28,5 @@ vim.opt.scrolloff = 8
 vim.opt.signcolumn = "yes"
 
 vim.g.mapleader = " "
+
+vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\.\?\(\w\+\)\@!]]
