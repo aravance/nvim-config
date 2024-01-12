@@ -19,10 +19,11 @@ return require('packer').startup(function(use)
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {
-        'rose-pine/neovim',
-        as = 'rose-pine',
+        'bluz71/vim-moonfly-colors',
+        as = 'moonfly',
         config = function()
-            vim.cmd('colorscheme rose-pine')
+            vim.g.moonflyTransparent = true
+            vim.cmd('colorscheme moonfly')
         end
     }
 
