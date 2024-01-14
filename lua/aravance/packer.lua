@@ -11,11 +11,18 @@ end
 
 local packer_bootstrap = ensure_packer()
 
+local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
+vim.api.nvim_create_autocmd('BufWritePost', {
+    command = 'source <afile> | PackerSync',
+    group = packer_group,
+    pattern = 'packer.lua',
+})
+
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
     use 'christoomey/vim-tmux-navigator'
     use {
-        'nvim-telescope/telescope.nvim', tag = '0.1.3',
+        'nvim-telescope/telescope.nvim', tag = '0.1.x',
         requires = { {'nvim-lua/plenary.nvim'} }
     }
     use {
@@ -33,12 +40,18 @@ return require('packer').startup(function(use)
             require('nvim-treesitter.install').update({ with_sync = true })()
         end,
     }
+
     use('mbbill/undotree')
     use('tpope/vim-fugitive')
     use('tpope/vim-commentary')
     use('tpope/vim-surround')
     use('tpope/vim-repeat')
     use('tpope/vim-speeddating')
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    }
 
     use {
         'VonHeikemen/lsp-zero.nvim',
