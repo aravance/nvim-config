@@ -23,19 +23,24 @@ lsp.setup_nvim_cmp( {
 })
 
 lsp.on_attach(function(_, bufnr)
-    local opts = {buffer = bufnr, remap = false}
+    local nmap = function(keys, func, desc)
+        if desc then
+            desc = 'LSP: ' .. desc
+        end
+        vim.keymap.set('n', keys, func, { buffer = bufnr, remap = false, desc = desc })
+    end
 
-    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "<C-h>", vim.lsp.buf.signature_help, opts)
-    vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-    vim.keymap.set("n", "gI", vim.lsp.buf.implementation, opts)
-    vim.keymap.set("n", "gr", vim.lsp.buf.references, opts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-    vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, opts)
-    vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, opts)
-    vim.keymap.set("n", "<leader>vd", vim.diagnostic.open_float, opts)
-    vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
-    vim.keymap.set("n", "[d", vim.diagnostic.goto_prev, opts)
+    vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr, remap = false, desc = 'Signature [H]elp' })
+    nmap("<C-h>", vim.lsp.buf.signature_help, 'Signature [H]elp')
+    nmap("gd", vim.lsp.buf.definition, '[G]oto [D]efinition')
+    nmap("gI", vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+    nmap("gr", vim.lsp.buf.references, '[G]oto [R]eferences')
+    nmap("K", vim.lsp.buf.hover, 'Hover Documentation')
+    nmap("<leader>ca", vim.lsp.buf.code_action, '[C]ode [A]ction')
+    nmap("<leader>rn", vim.lsp.buf.rename, '[R]e[n]ame')
+    nmap("<leader>vd", vim.diagnostic.open_float, '[V]im [D]iagnostics')
+    nmap("]d", vim.diagnostic.goto_next, 'Next [D]iagnostic')
+    nmap("[d", vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
 end)
 
 lsp.configure('kotlin_language_server', {
