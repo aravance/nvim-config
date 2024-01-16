@@ -12,10 +12,10 @@ require 'nvim-treesitter.configs'.setup {
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<c-space>',
-      node_incremental = '<c-space>',
+      init_selection = '<c-K>',
+      node_incremental = '<c-K>',
       scope_incremental = '<c-s>',
-      node_decremental = '<c-backspace>',
+      node_decremental = '<c-J>',
     },
   },
 
@@ -25,11 +25,11 @@ require 'nvim-treesitter.configs'.setup {
       lookahead = true, -- automatically jump forward to textobj, similar to targets.vim
       keymaps = {
         ['aa'] = '@parameter.outer',
-        ['ia'] = '@parameter.outer',
+        ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
-        ['if'] = '@function.outer',
+        ['if'] = '@function.inner',
         ['ac'] = '@class.outer',
-        ['ic'] = '@class.outer',
+        ['ic'] = '@class.inner',
       },
     },
     move = {
