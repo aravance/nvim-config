@@ -1,6 +1,6 @@
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "kotlin", "java" },
+  ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "kotlin", "java", "bash" },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -9,13 +9,15 @@ require 'nvim-treesitter.configs'.setup {
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = true,
 
+  indent = { enable = true },
+
   incremental_selection = {
     enable = true,
     keymaps = {
-      init_selection = '<c-K>',
-      node_incremental = '<c-K>',
+      init_selection = '<c-space>',
+      node_incremental = '<c-space>',
       scope_incremental = '<c-s>',
-      node_decremental = '<c-J>',
+      node_decremental = '<c-backspace>',
     },
   },
 
