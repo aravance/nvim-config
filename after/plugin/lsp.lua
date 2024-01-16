@@ -7,10 +7,12 @@ lsp.ensure_installed({
     'eslint',
     'lua_ls',
     'kotlin_language_server',
+    'gopls',
+    'templ',
 })
 
 local cmp = require('cmp')
-local cmp_select = {behavior = cmp.SelectBehavior.Select}
+local cmp_select = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
@@ -18,7 +20,7 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     ['<C-Space>'] = cmp.mapping.complete(),
 })
 
-lsp.setup_nvim_cmp( {
+lsp.setup_nvim_cmp({
     mapping = cmp_mappings
 })
 
@@ -41,11 +43,22 @@ lsp.on_attach(function(_, bufnr)
     nmap("<leader>vd", vim.diagnostic.open_float, '[V]im [D]iagnostics')
     nmap("]d", vim.diagnostic.goto_next, 'Next [D]iagnostic')
     nmap("[d", vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
+
+    vim.api.nvim_create_autocmd('BufWritePre', {
+        pattern = { '*.tsx', '*.ts', '*.go', '*.templ', '*.lua' },
+        callback = function() vim.lsp.buf.format() end,
+    })
 end)
+
+local lspconfig = require('lspconfig')
+
+vim.filetype.add({ extension = { templ = "templ" } })
+lsp.configure('htmx', { filetypes = { "html", "templ" } })
+lsp.configure('html', { filetypes = { "html", "templ" } })
 
 lsp.configure('kotlin_language_server', {
     workspaceFolders = true,
-    root_dir = require 'lspconfig'.util.root_pattern("packageInfo", vim.fn.getcwd()),
+    root_dir = lspconfig.util.root_pattern("packageInfo", vim.fn.getcwd()),
 })
 
 lsp.nvim_workspace()
