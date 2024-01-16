@@ -41,6 +41,7 @@ return require('packer').startup(function(use)
     end,
   }
 
+  use('lewis6991/gitsigns.nvim')
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
   use('tpope/vim-commentary')
