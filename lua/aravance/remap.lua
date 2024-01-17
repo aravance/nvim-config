@@ -1,7 +1,8 @@
 vim.g.mapleader = " "
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
 
--- alacritty + tmux can be difficult, so we remap alacritty to send ^W on ^Backspace
+-- alacritty + tmux doesn't support ctrl+backspace on mac
+-- so we remap alacritty to send ^W on ^Backspace
 --[=[
 cat >>~/.config/alacritty/alacritty.toml <<EOF
 [[keyboard.bindings]]
@@ -12,10 +13,15 @@ chars = "\u0017"
 EOF
 --]=]
 -- then we remap <c-w> here
-vim.api.nvim_set_keymap("n", "<c-w>", "<c-backspace>", {})
-vim.api.nvim_set_keymap("c", "<c-w>", "<c-backspace>", {})
-vim.api.nvim_set_keymap("i", "<c-w>", "<c-backspace>", {})
-vim.api.nvim_set_keymap("v", "<c-w>", "<c-backspace>", {})
+vim.api.nvim_set_keymap("n", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("c", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("i", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("v", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("x", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("s", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("o", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("t", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
+vim.api.nvim_set_keymap("l", "<c-w>", "<c-backspace>", { desc = "Remap backspace" })
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
