@@ -60,6 +60,9 @@ vim.filetype.add({ extension = { templ = "templ" } })
 lsp.configure('htmx', { filetypes = { "html", "templ" } })
 lsp.configure('html', { filetypes = { "html", "templ" } })
 
+-- setup neodev before lspconfig
+require('neodev').setup {}
+
 local lspconfig = require('lspconfig')
 lsp.configure('kotlin_language_server', {
   workspaceFolders = true,
