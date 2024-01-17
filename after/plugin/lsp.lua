@@ -56,15 +56,18 @@ lsp.on_attach(function(_, bufnr)
   })
 end)
 
-local lspconfig = require('lspconfig')
-
 vim.filetype.add({ extension = { templ = "templ" } })
 lsp.configure('htmx', { filetypes = { "html", "templ" } })
 lsp.configure('html', { filetypes = { "html", "templ" } })
 
+local lspconfig = require('lspconfig')
 lsp.configure('kotlin_language_server', {
   workspaceFolders = true,
-  root_dir = lspconfig.util.root_pattern("packageInfo", vim.fn.getcwd()),
+  root_dir = lspconfig.util.root_pattern(
+    "packageInfo",
+    { "settings.gradle", "settings.gradle.kts" },
+    { "build.gradle", "build.gradle.kts" }
+  ) or vim.fn.getcwd(),
 })
 
 lsp.nvim_workspace()
