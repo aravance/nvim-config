@@ -2,8 +2,7 @@ vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
 
 local fugitive_window = vim.api.nvim_create_augroup("fugitive_window", {})
 
-local autocmd = vim.api.nvim_create_autocmd
-autocmd("BufWinEnter", {
+vim.api.nvim_create_autocmd("BufWinEnter", {
   group = fugitive_window,
   pattern = "*",
   callback = function()

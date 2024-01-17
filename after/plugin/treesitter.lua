@@ -12,6 +12,8 @@ require 'nvim-treesitter.configs'.setup {
     "kotlin",
     "java",
     "go",
+    "toml",
+    "yaml",
     "gitignore",
   },
 
@@ -43,8 +45,9 @@ require 'nvim-treesitter.configs'.setup {
   textobjects = {
     select = {
       enable = true,
-      lookahead = true, -- automatically jump forward to textobj, similar to targets.vim
+      lookahead = true, -- Automatically jump forward to textobj, similar to targets.vim
       keymaps = {
+        -- You can use the capture groups defined in textobjects.scm
         ['aa'] = '@parameter.outer',
         ['ia'] = '@parameter.inner',
         ['af'] = '@function.outer',
@@ -66,11 +69,11 @@ require 'nvim-treesitter.configs'.setup {
       },
       goto_previous_start = {
         ['[m'] = '@function.outer',
-        ['[]'] = '@class.outer',
+        ['[['] = '@class.outer',
       },
       goto_previous_end = {
         ['[M'] = '@function.outer',
-        ['[['] = '@class.outer',
+        ['[]'] = '@class.outer',
       },
     },
     swap = {
