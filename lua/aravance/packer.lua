@@ -25,6 +25,7 @@ return require('packer').startup(function(use)
     'nvim-telescope/telescope.nvim', tag = '0.1.x',
     requires = { { 'nvim-lua/plenary.nvim' } }
   }
+  use 'windwp/nvim-autopairs'
   use {
     'bluz71/vim-moonfly-colors',
     as = 'moonfly',
