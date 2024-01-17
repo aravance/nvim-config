@@ -1,6 +1,19 @@
 require 'nvim-treesitter.configs'.setup {
   -- A list of parser names, or "all"
-  ensure_installed = { "vimdoc", "javascript", "typescript", "c", "lua", "kotlin", "java", "bash" },
+  ensure_installed = {
+    "vimdoc",
+    "vim",
+    "bash",
+    "javascript",
+    "typescript",
+    "c",
+    "cpp",
+    "lua",
+    "kotlin",
+    "java",
+    "go",
+    "gitignore",
+  },
 
   -- Install parsers synchronously (only applied to `ensure_installed`)
   sync_install = false,
@@ -8,6 +21,12 @@ require 'nvim-treesitter.configs'.setup {
   -- Automatically install missing parsers when entering buffer
   -- Recommendation: set to false if you don't have `tree-sitter` CLI installed locally
   auto_install = true,
+
+  -- list of parsers to ignore installing
+  ignore_install = {},
+
+  -- additional modules to be enabled, e.g. playground = {--enable = true,-- },
+  modules = {},
 
   indent = { enable = true },
 
