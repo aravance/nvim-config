@@ -30,24 +30,24 @@ lsp.setup_nvim_cmp({
 })
 
 lsp.on_attach(function(_, bufnr)
-  local nmap = function(keys, func, desc)
+  local map = function(mode, keys, func, desc)
     if desc then
       desc = 'LSP: ' .. desc
     end
-    vim.keymap.set('n', keys, func, { buffer = bufnr, remap = false, desc = desc })
+    vim.keymap.set(mode, keys, func, { buffer = bufnr, remap = false, desc = desc })
   end
 
-  vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr, remap = false, desc = 'Signature [H]elp' })
-  nmap("gd", vim.lsp.buf.definition, '[G]oto [D]efinition')
-  nmap("gD", vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  nmap("gI", vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  nmap("gr", vim.lsp.buf.references, '[G]oto [R]eferences')
-  nmap("K", vim.lsp.buf.hover, 'Hover Documentation')
-  nmap("<leader>ca", vim.lsp.buf.code_action, '[C]ode [A]ction')
-  nmap("<leader>rn", vim.lsp.buf.rename, '[R]e[n]ame')
-  nmap("<leader>vd", vim.diagnostic.open_float, '[V]im [D]iagnostics')
-  nmap("]d", vim.diagnostic.goto_next, 'Next [D]iagnostic')
-  nmap("[d", vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
+  map({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help, 'Signature [H]elp')
+  map("n", "gd", vim.lsp.buf.definition, '[G]oto [D]efinition')
+  map("n", "gD", vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  map("n", "gI", vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  map("n", "gr", vim.lsp.buf.references, '[G]oto [R]eferences')
+  map("n", "K", vim.lsp.buf.hover, 'Hover Documentation')
+  map("n", "<leader>ca", vim.lsp.buf.code_action, '[C]ode [A]ction')
+  map("n", "<leader>rn", vim.lsp.buf.rename, '[R]e[n]ame')
+  map("n", "<leader>vd", vim.diagnostic.open_float, '[V]im [D]iagnostics')
+  map("n", "]d", vim.diagnostic.goto_next, 'Next [D]iagnostic')
+  map("n", "[d", vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
 
   vim.api.nvim_create_autocmd('BufWritePre', {
     pattern = { '*.tsx', '*.ts', '*.go', '*.templ', '*.lua' },
