@@ -8,7 +8,6 @@ lsp.ensure_installed({
   'lua_ls',
   'kotlin_language_server',
   'jdtls',
-  'gopls',
   'html',
   'htmx',
 })
@@ -39,7 +38,6 @@ lsp.on_attach(function(_, bufnr)
   end
 
   vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, { buffer = bufnr, remap = false, desc = 'Signature [H]elp' })
-  nmap("<C-h>", vim.lsp.buf.signature_help, 'Signature [H]elp')
   nmap("gd", vim.lsp.buf.definition, '[G]oto [D]efinition')
   nmap("gD", vim.lsp.buf.declaration, '[G]oto [D]eclaration')
   nmap("gI", vim.lsp.buf.implementation, '[G]oto [I]mplementation')
