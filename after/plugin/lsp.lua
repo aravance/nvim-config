@@ -8,6 +8,7 @@ lsp.ensure_installed({
   'lua_ls',
   'kotlin_language_server',
   'jdtls',
+  'gopls',
   'html',
   'htmx',
 })
