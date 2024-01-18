@@ -28,3 +28,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
     vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
   end,
 })
+
+vim.keymap.set("n", "gh", "<cmd>diffget //2<CR>", { desc = "[G]it Select Left" })
+vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>", { desc = "[G]it Select Right" })
