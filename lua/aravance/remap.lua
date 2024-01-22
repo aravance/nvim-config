@@ -1,5 +1,5 @@
 vim.g.mapleader = " "
-function map(m, l, r, opts)
+local function map(m, l, r, opts)
   vim.keymap.set(m, l, r, opts)
 end
 
@@ -22,8 +22,6 @@ map("n", "G", "Gzz")
 
 map("x", "<leader>p", "\"_dP")
 
-map({ "n", "v" }, "<leader>p", "\"+p", { desc = "Paste from clipboard" })
-map({ "n", "v" }, "<leader>P", "\"+P", { desc = "Paste from clipboard" })
 map({ "n", "v" }, "<leader>y", "\"+y", { desc = "Yank to clipboard" })
 map({ "n", "v" }, "<leader>Y", "\"+Y", { desc = "Yank to clipboard" })
 
