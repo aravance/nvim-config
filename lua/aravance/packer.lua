@@ -39,6 +39,9 @@ return require('packer').startup(function(use)
     run = function()
       require('nvim-treesitter.install').update({ with_sync = true })()
     end,
+    requires = {
+      'nvim-treesitter/nvim-treesitter-textobjects',
+    },
   }
 
   use('lewis6991/gitsigns.nvim')
@@ -49,6 +52,7 @@ return require('packer').startup(function(use)
   use('tpope/vim-repeat')
   use('tpope/vim-speeddating')
   use('tpope/vim-sleuth')
+  use('tpope/vim-unimpaired')
   use('folke/neodev.nvim')
 
   use {
