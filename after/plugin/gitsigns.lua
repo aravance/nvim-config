@@ -24,7 +24,8 @@ require('gitsigns').setup {
     map('n', '<leader>hS', gs.stage_buffer, { desc = 'Git Buffer [H]unk [S]tage' })
     map('n', '<leader>hR', gs.reset_buffer, { desc = 'Git Buffer [H]unk [R]eset' })
     map('n', '<leader>hu', gs.undo_stage_hunk, { desc = 'Git [H]unk [U]ndo stage' })
-    map('n', '<leader>hp', gs.preview_hunk, { desc = 'Git [H]unk [P]review' })
+    map('n', '<leader>hp', gs.preview_hunk_inline, { desc = 'Git [H]unk [P]review' })
+    map('n', '<leader>hP', gs.preview_hunk, { desc = 'Git [H]unk [P]review full' })
     map('n', '<leader>hb', function()
       gs.blame_line { full = false }
     end, { desc = 'Git [H]unk [B]lame' })
@@ -34,7 +35,7 @@ require('gitsigns').setup {
     map('n', '<leader>tb', gs.toggle_current_line_blame, { desc = 'Git [T]oggle [B]lame' })
     map('n', '<leader>td', gs.toggle_deleted, { desc = 'Git [T]oggle [D]eleted hunks' })
     map('n', '<leader>hd', gs.diffthis, { desc = 'Git [H]unk [D]iff' })
-    map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Git [H]unk [D]iff?' })
+    map('n', '<leader>hD', function() gs.diffthis('~') end, { desc = 'Git [H]unk [D]iff HEAD' })
     map('v', '<leader>hs', function()
       gs.stage_hunk { vim.fn.line('.'), vim.fn.line('v') }
     end, { desc = '[G]it [R]eset hunk' })
