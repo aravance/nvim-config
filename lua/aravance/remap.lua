@@ -8,10 +8,8 @@ map("n", "<leader>pv", vim.cmd.Ex)
 map("v", "J", ":m '>+1<CR>gv=gv")
 map("v", "K", ":m '<-2<CR>gv=gv")
 
-map("n", "<leader>i", "i <esc>i")
-map("n", "<leader>a", "a <esc>i")
-map("n", "<leader>I", "I <esc>i")
-map("n", "<leader>A", "A <esc>i")
+map("n", "<leader>i", "i <left>")
+map("n", "<leader>I", "I <left>")
 
 map("n", "J", "mzJ`z")
 map("n", "<C-d>", "<C-d>zz")
