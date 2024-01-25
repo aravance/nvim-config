@@ -22,7 +22,7 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
   use {
     'nvim-telescope/telescope.nvim', tag = '0.1.x',
-    requires = { { 'nvim-lua/plenary.nvim' } }
+    requires = { 'nvim-lua/plenary.nvim' }
   }
   use 'windwp/nvim-autopairs'
   use {
@@ -39,15 +39,23 @@ return require('packer').startup(function(use)
     run = function()
       require('nvim-treesitter.install').update({ with_sync = true })()
     end,
+    requires = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  }
+
+  use {
+    'theprimeagen/harpoon',
+    requires = { 'nvim-lua/plenary.nvim' },
+  }
+  use {
+    'theprimeagen/refactoring.nvim',
     requires = {
-      'nvim-treesitter/nvim-treesitter-textobjects',
+      { 'nvim-lua/plenary.nvim' },
+      { "nvim-treesitter/nvim-treesitter" },
     },
   }
 
   use('lewis6991/gitsigns.nvim')
   use('mbbill/undotree')
-  use('theprimeagen/harpoon')
-  use('theprimeagen/refactoring.nvim')
   use('tpope/vim-fugitive')
   use('tpope/vim-commentary')
   use('tpope/vim-surround')
