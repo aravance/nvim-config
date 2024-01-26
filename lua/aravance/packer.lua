@@ -54,6 +54,18 @@ return require('packer').startup(function(use)
     },
   }
 
+  use {
+    'epwalsh/obsidian.nvim',
+    tag = "*", -- use the latest commit
+    requires = {
+      { 'nvim-lua/plenary.nvim' },
+      { 'nvim-telescope/telescope.nvim' },   -- Optional
+      { 'hrsh7th/nvim-cmp' },                -- Optional
+      { "nvim-treesitter/nvim-treesitter" }, -- Optional
+      -- { 'pomo.nvim' },                    -- Optional
+    },
+  }
+
   use('lewis6991/gitsigns.nvim')
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
