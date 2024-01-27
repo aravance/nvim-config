@@ -38,7 +38,7 @@ obsidian.setup {
   -- disable default zettelkasten id, just use the title
   note_id_func = function(title) return title end,
   note_frontmatter_func = function(note)
-    local out = { tags = note.tags, aliases = note.aliases }
+    local out = { tags = note.tags }
 
     local is_daily = false
     for _, tag in pairs(note.tags) do
@@ -48,15 +48,18 @@ obsidian.setup {
       end
     end
 
-    if not is_daily and note.aliases ~= nil and not vim.tbl_isempty(note.aliases) then
-      local index = nil
-      for k, v in pairs(note) do
-        if v == note.title then
-          index = k
+    if note.aliases ~= nil and not vim.tbl_isempty(note.aliases) then
+      local aliases = {}
+      local index = 1
+      for k, v in pairs(note.aliases) do
+        print('aliases.' .. tostring(k) .. ' = ' .. tostring(v))
+        if is_daily or v ~= note.id then
+          aliases[index] = v
+          index = index + 1
         end
       end
-      if index ~= nil then
-        note.aliases.remove(index)
+      if not vim.tbl_isempty(aliases) then
+        out.aliases = aliases
       end
     end
 
@@ -74,3 +77,6 @@ vim.keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Open
 vim.keymap.set("n", "<leader>od", "<cmd>ObsidianToday<CR>", { desc = "[O]bsidian To[d]ay" })
 vim.keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<CR>", { desc = "[O]bsidian [Y]esterday" })
 vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<CR>", { desc = "[O]bsidian [T]omorrow" })
+vim.keymap.set("n", "<leader>og", "<cmd>ObsidianSearch<CR>", { desc = "[O]bsidian [T]omorrow" })
+vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "[O]bsidian [T]omorrow" })
+vim.keymap.set("n", "<leader>oa", "<cmd>ObsidianTags<CR>", { desc = "[O]bsidian [T]omorrow" })
