@@ -37,6 +37,15 @@ obsidian.setup {
 
   -- disable default zettelkasten id, just use the title
   note_id_func = function(title) return title end,
+  follow_url_func = function(url)
+    local opencmd
+    if vim.loop.os_uname().sysname == "Linux" then
+      opencmd = "xdg-open"
+    else
+      opencmd = "open"
+    end
+    vim.fn.jobstart({ opencmd, url })
+  end,
   note_frontmatter_func = function(note)
     local out = { tags = note.tags }
 
