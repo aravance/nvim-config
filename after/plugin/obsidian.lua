@@ -26,10 +26,28 @@ obsidian.setup {
       end,
       opts = { noremap = false, expr = true, buffer = true },
     },
-    -- Toggle check-boxes
+    -- Toggle check-boxes with tasks support
     ["<leader>ch"] = {
       action = function()
-        return obsidian.util.toggle_checkbox()
+        local line = vim.api.nvim_get_current_line()
+        if not string.match(line, '^%s*- %[.%]') then
+          return
+        end
+        local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+
+        local is_checked = string.match(line, '- %[%S%]')
+        if is_checked then
+          line = string.gsub(line, '- %[%S%]', '- [ ]', 1)
+          line = string.gsub(line, '%s*✅ %d%d%d%d%-%d%d%-%d%d', '')
+        else
+          line = string.gsub(line, '- %[ %]', '- [x]')
+          local pattern = '%s?✅ %d%d%d%d%-%d%d%-%d%d'
+          if not string.find(line, pattern) then
+            pattern = '%s?$'
+          end
+          line = string.gsub(line, pattern, ' ✅ ' .. os.date('%Y-%m-%d'), 1)
+        end
+        vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line })
       end,
       opts = { buffer = true },
     },
