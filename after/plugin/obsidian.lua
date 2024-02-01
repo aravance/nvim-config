@@ -43,13 +43,18 @@ obsidian.setup {
   templates = {
     subdir = "templates",
     date_format = "%Y-%m-%d",
+    substitutions = {
+      ['date:MMMM D, YYYY'] = function()
+        return os.date('%B %-d, %Y')
+      end,
+    },
   },
 
   notes_subdir = "notes",
 
   daily_notes = {
     folder = "daily",
-    template = nil,
+    template = "daily.md",
   },
 
   completion = {
