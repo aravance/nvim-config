@@ -24,10 +24,6 @@ local cmp_mappings = lsp.defaults.cmp_mappings({
     select = true,
   }),
   ['<C-Space>'] = cmp.mapping.complete {},
-  ['<CR>'] = cmp.mapping.confirm {
-    behavior = cmp.ConfirmBehavior.Replace,
-    select = true,
-  },
 })
 
 lsp.setup_nvim_cmp({
