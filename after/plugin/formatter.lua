@@ -1,5 +1,8 @@
 require('formatter').setup {
   filetype = {
+    go = {
+      require('formatter.filetypes.go').goimports,
+    },
     ['*'] = {
       require('formatter.filetypes.any').remove_trailing_whitespace
     },
