@@ -89,6 +89,7 @@ return require('packer').startup(function(use)
       { 'neovim/nvim-lspconfig' },             -- Required
       { 'williamboman/mason.nvim' },           -- Optional
       { 'williamboman/mason-lspconfig.nvim' }, -- Optional
+      { 'mhartington/formatter.nvim' },        -- Optional
 
       -- Autocompletion
       { 'hrsh7th/nvim-cmp' },         -- Required

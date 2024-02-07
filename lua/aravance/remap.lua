@@ -25,7 +25,6 @@ map({ "n", "v" }, "<leader>Y", "\"+Y", { desc = "Yank to clipboard" })
 
 map("n", "Q", "<nop>")
 map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "tmux-sessionizer" })
-map("n", "<leader>f", vim.lsp.buf.format, { desc = "[F]ormat file" })
 
 map("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next error" })
 map("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous error" })
