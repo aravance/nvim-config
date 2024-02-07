@@ -7,6 +7,8 @@ lsp.ensure_installed({
   'eslint',
   'lua_ls',
   'kotlin_language_server',
+  'gopls',
+  'templ',
   'jdtls',
   'html',
   'htmx',
@@ -46,17 +48,25 @@ lsp.on_attach(function(_, bufnr)
   map("n", "gI", vim.lsp.buf.implementation, '[G]oto [I]mplementation')
   map("n", "gr", vim.lsp.buf.references, '[G]oto [R]eferences')
   map("n", "K", vim.lsp.buf.hover, 'Hover Documentation')
+  map({ "n", "x" }, "<leader>f", vim.lsp.buf.format, "[F]ormat file")
   map("n", "<leader>ca", vim.lsp.buf.code_action, '[C]ode [A]ction')
   map("n", "<leader>rn", vim.lsp.buf.rename, '[R]e[n]ame')
   map("n", "<leader>vd", vim.diagnostic.open_float, '[V]im [D]iagnostics')
   map("n", "]d", vim.diagnostic.goto_next, 'Next [D]iagnostic')
   map("n", "[d", vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
-
-  vim.api.nvim_create_autocmd('BufWritePre', {
-    pattern = { '*.tsx', '*.ts', '*.go', '*.templ', '*.lua' },
-    callback = function() vim.lsp.buf.format() end,
-  })
 end)
+
+lsp.format_on_save {
+  format_opts = {
+    async = false,
+    timeout_ms = 5000,
+  },
+  servers = {
+    ['gopls'] = { 'go' },
+    ['lua_ls'] = { 'lua' },
+    ['templ'] = { 'templ' },
+  }
+}
 
 vim.filetype.add({ extension = { templ = "templ" } })
 lsp.configure('htmx', { filetypes = { "html", "templ" } })
