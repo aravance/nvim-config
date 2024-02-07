@@ -62,7 +62,6 @@ lsp.format_on_save {
     timeout_ms = 5000,
   },
   servers = {
-    ['gopls'] = { 'go' },
     ['lua_ls'] = { 'lua' },
     ['templ'] = { 'templ' },
   }
