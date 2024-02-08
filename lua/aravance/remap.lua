@@ -1,37 +1,34 @@
 vim.g.mapleader = " "
-local function map(m, l, r, opts)
-  vim.keymap.set(m, l, r, opts)
-end
 
-map("n", "<leader>pv", vim.cmd.Ex)
+keymap("n", "<leader>pv", vim.cmd.Ex)
 
-map("v", "J", ":m '>+1<CR>gv=gv")
-map("v", "K", ":m '<-2<CR>gv=gv")
+keymap("v", "J", ":m '>+1<CR>gv=gv")
+keymap("v", "K", ":m '<-2<CR>gv=gv")
 
-map("n", "<leader>i", "i <left>")
-map("n", "<leader>I", "I <left>")
+keymap("n", "<leader>i", "i <left>")
+keymap("n", "<leader>I", "I <left>")
 
-map("n", "J", "mzJ`z")
-map("n", "<C-d>", "<C-d>zz")
-map("n", "<C-u>", "<C-u>zz")
-map("n", "n", "nzzzv")
-map("n", "N", "Nzzzv")
-map("n", "G", "Gzz")
+keymap("n", "J", "mzJ`z")
+keymap("n", "<C-d>", "<C-d>zz")
+keymap("n", "<C-u>", "<C-u>zz")
+keymap("n", "n", "nzzzv")
+keymap("n", "N", "Nzzzv")
+keymap("n", "G", "Gzz")
 
-map("x", "<leader>p", "\"_dP")
+keymap("x", "<leader>p", "\"_dP")
 
-map({ "n", "v" }, "<leader>y", "\"+y", { desc = "Yank to clipboard" })
-map({ "n", "v" }, "<leader>Y", "\"+Y", { desc = "Yank to clipboard" })
+keymap({ "n", "v" }, "<leader>y", "\"+y", "Yank to clipboard")
+keymap({ "n", "v" }, "<leader>Y", "\"+Y", "Yank to clipboard")
 
-map("n", "Q", "<nop>")
-map("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", { desc = "tmux-sessionizer" })
+keymap("n", "Q", "<nop>")
+keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "tmux-sessionizer")
 
-map("n", "<C-k>", "<cmd>cnext<CR>zz", { desc = "Next error" })
-map("n", "<C-j>", "<cmd>cprev<CR>zz", { desc = "Previous error" })
-map("n", "<leader>k", "<cmd>lnext<CR>zz", { desc = "Next location" })
-map("n", "<leader>j", "<cmd>lprev<CR>zz", { desc = "Previous location" })
+keymap("n", "<C-k>", "<cmd>cnext<CR>zz", "Next error")
+keymap("n", "<C-j>", "<cmd>cprev<CR>zz", "Previous error")
+keymap("n", "<leader>k", "<cmd>lnext<CR>zz", "Next location")
+keymap("n", "<leader>j", "<cmd>lprev<CR>zz", "Previous location")
 
-map("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace in file" })
-map("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make executable" })
+keymap("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], "Replace in file")
+keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make executable" })
 
-map("c", "w!!", "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!")
+keymap("c", "w!!", "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!")
