@@ -1,4 +1,21 @@
+local telescope = require('telescope')
+local actions = require('telescope.actions')
 local builtin = require('telescope.builtin')
+
+telescope.setup {
+  defaults = {
+    mappings = {
+      i = {
+        ['<C-y>'] = actions.select_default,
+        ['<C-h>'] = actions.which_key,
+      },
+      n = {
+        ['<C-y>'] = actions.select_default,
+      },
+    },
+  },
+}
+
 vim.keymap.set('n', '<leader>gd', builtin.lsp_definitions, { desc = '[G]oto [D]efinition' })
 vim.keymap.set('n', '<leader>gD', builtin.lsp_type_definitions, { desc = '[G]oto [D]eclaration' })
 vim.keymap.set('n', '<leader>gI', builtin.lsp_implementations, { desc = '[G]oto [I]mplementations' })
@@ -13,7 +30,6 @@ vim.keymap.set('n', '<leader>pw', builtin.grep_string, { desc = 'Search [P]rojec
 vim.keymap.set('n', '<leader>pf', builtin.find_files, { desc = '[P]roject [F]iles' })
 vim.keymap.set('n', '<leader>/', function()
   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
-    winblend = 10,
     previewer = false,
   })
 end, { desc = '[/] Fuzzy search current buffer' })
