@@ -127,11 +127,11 @@ obsidian.setup {
   end,
 }
 
-vim.keymap.set("n", "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", { desc = "Open [O]bsidian [F]ile" })
-vim.keymap.set("n", "<leader>od", "<cmd>ObsidianToday<CR>", { desc = "[O]bsidian To[d]ay" })
-vim.keymap.set("n", "<leader>oy", "<cmd>ObsidianYesterday<CR>", { desc = "[O]bsidian [Y]esterday" })
-vim.keymap.set("n", "<leader>ot", "<cmd>ObsidianTomorrow<CR>", { desc = "[O]bsidian [T]omorrow" })
-vim.keymap.set("n", "<leader>og", "<cmd>ObsidianSearch<CR>", { desc = "[O]bsidian [G]rep" })
-vim.keymap.set("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", { desc = "[O]bsidian [B]acklinks" })
-vim.keymap.set("n", "<leader>oa", "<cmd>ObsidianTags<CR>", { desc = "[O]bsidian T[a]gs" })
-vim.keymap.set("n", "<leader>op", "<cmd>ObsidianTemplate<CR>", { desc = "[O]bsidian Tem[p]late" })
+keymap("n", "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", "Open [O]bsidian [F]ile")
+keymap("n", "<leader>od", "<cmd>ObsidianToday<CR>", "[O]bsidian To[d]ay")
+keymap("n", "<leader>oy", "<cmd>ObsidianYesterday<CR>", "[O]bsidian [Y]esterday")
+keymap("n", "<leader>ot", "<cmd>ObsidianTomorrow<CR>", "[O]bsidian [T]omorrow")
+keymap("n", "<leader>og", "<cmd>ObsidianSearch<CR>", "[O]bsidian [G]rep")
+keymap("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", "[O]bsidian [B]acklinks")
+keymap("n", "<leader>oa", "<cmd>ObsidianTags<CR>", "[O]bsidian T[a]gs")
+keymap("n", "<leader>op", "<cmd>ObsidianTemplate<CR>", "[O]bsidian Tem[p]late")

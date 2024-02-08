@@ -1,5 +1,3 @@
-vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
-
 local fugitive_window = vim.api.nvim_create_augroup("fugitive_window", {})
 
 vim.api.nvim_create_autocmd("BufWinEnter", {
@@ -29,5 +27,6 @@ vim.api.nvim_create_autocmd("BufWinEnter", {
   end,
 })
 
-vim.keymap.set("n", "gh", "<cmd>diffget //2<CR>", { desc = "[G]it Select Left" })
-vim.keymap.set("n", "gl", "<cmd>diffget //3<CR>", { desc = "[G]it Select Right" })
+keymap("n", "<leader>gs", vim.cmd.Git, "[G]it [S]tart")
+keymap("n", "gh", "<cmd>diffget //2<CR>", "[G]it Select Left")
+keymap("n", "gl", "<cmd>diffget //3<CR>", "[G]it Select Right")
