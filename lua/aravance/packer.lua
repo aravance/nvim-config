@@ -83,7 +83,11 @@ return require('packer').startup(function(use)
   }
   use {
     'chrisgrieser/nvim-genghis',
-    requires = 'stevearc/dressing.nvim',
+    requires = {
+      'stevearc/dressing.nvim', -- Required
+      'hrsh7th/nvim-cmp',       -- Optional
+      'hrsh7th/cmp-omni',       -- Optional
+    },
   }
 
   use {
