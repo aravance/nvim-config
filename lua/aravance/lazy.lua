@@ -1,98 +1,96 @@
-local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
-    vim.cmd [[packadd packer.nvim]]
-    return true
+local ensure_lazy = function()
+  local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+  if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+      "git",
+      "clone",
+      "--filter=blob:none",
+      "https://github.com/folke/lazy.nvim.git",
+      "--branch=stable", -- latest stable release
+      lazypath,
+    })
   end
-  return false
+  vim.opt.rtp:prepend(lazypath)
 end
 
-local packer_bootstrap = ensure_packer()
+ensure_lazy()
 
-local packer_group = vim.api.nvim_create_augroup('Packer', { clear = true })
-vim.api.nvim_create_autocmd('BufWritePost', {
-  command = 'source <afile> | PackerSync',
-  group = packer_group,
-  pattern = 'packer.lua',
-})
+return require('lazy').setup({
+  { 'wbthomason/packer.nvim' },
+  {
+    'nvim-telescope/telescope.nvim',
+    version = '0.1.x',
+    dependencies = { 'nvim-lua/plenary.nvim' }
+  },
 
-return require('packer').startup(function(use)
-  use 'wbthomason/packer.nvim'
-  use {
-    'nvim-telescope/telescope.nvim', tag = '0.1.x',
-    requires = { 'nvim-lua/plenary.nvim' }
-  }
-  use 'windwp/nvim-autopairs'
-  use {
+  { 'windwp/nvim-autopairs' },
+  {
     'bluz71/vim-moonfly-colors',
-    as = 'moonfly',
+    name = 'moonfly',
     config = function()
       vim.g.moonflyTransparent = true
       vim.cmd('colorscheme moonfly')
     end
-  }
+  },
 
-  use {
+  {
     'nvim-treesitter/nvim-treesitter',
-    run = function()
+    build = function()
       require('nvim-treesitter.install').update({ with_sync = true })()
     end,
-    requires = { 'nvim-treesitter/nvim-treesitter-textobjects' },
-  }
+    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
+  },
 
-  use {
+  {
     'theprimeagen/harpoon',
-    requires = { 'nvim-lua/plenary.nvim' },
-  }
-  use {
+    dependencies = { 'nvim-lua/plenary.nvim' },
+  },
+  {
     'theprimeagen/refactoring.nvim',
-    requires = {
+    dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { "nvim-treesitter/nvim-treesitter" },
     },
-  }
+  },
 
-  use {
+  {
     'epwalsh/obsidian.nvim',
-    tag = "*", -- use the latest commit
-    requires = {
+    version = "*", -- use the latest commit
+    dependencies = {
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope.nvim' },   -- Optional
       { 'hrsh7th/nvim-cmp' },                -- Optional
       { "nvim-treesitter/nvim-treesitter" }, -- Optional
       -- { 'pomo.nvim' },                    -- Optional
     },
-  }
+  },
 
-  use('lewis6991/gitsigns.nvim')
-  use('mbbill/undotree')
-  use('tpope/vim-fugitive')
-  use('tpope/vim-commentary')
-  use('tpope/vim-surround')
-  use('tpope/vim-repeat')
-  use('tpope/vim-speeddating')
-  use('tpope/vim-sleuth')
-  use('tpope/vim-unimpaired')
-  use('folke/neodev.nvim')
+  { 'lewis6991/gitsigns.nvim' },
+  { 'mbbill/undotree' },
+  { 'tpope/vim-fugitive' },
+  { 'tpope/vim-commentary' },
+  { 'tpope/vim-surround' },
+  { 'tpope/vim-repeat' },
+  { 'tpope/vim-speeddating' },
+  { 'tpope/vim-sleuth' },
+  { 'tpope/vim-unimpaired' },
+  { 'folke/neodev.nvim' },
 
-  use {
+  {
     'nvim-lualine/lualine.nvim',
-    requires = { 'nvim-tree/nvim-web-devicons', opt = true }
-  }
-  use {
+    dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
+  },
+  {
     'chrisgrieser/nvim-genghis',
-    requires = {
+    dependencies = {
       'stevearc/dressing.nvim', -- Required
       'hrsh7th/nvim-cmp',       -- Optional
       'hrsh7th/cmp-omni',       -- Optional
     },
-  }
-
-  use {
+  },
+  {
     'VonHeikemen/lsp-zero.nvim',
-    requires = {
+    dependencies = {
       -- LSP Support
       { 'neovim/nvim-lspconfig' },             -- Required
       { 'williamboman/mason.nvim' },           -- Optional
@@ -111,9 +109,5 @@ return require('packer').startup(function(use)
       { 'L3MON4D3/LuaSnip' },             -- Required
       { 'rafamadriz/friendly-snippets' }, -- Optional
     }
-  }
-
-  if packer_bootstrap then
-    require('packer').sync()
-  end
-end)
+  },
+})

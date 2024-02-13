@@ -29,6 +29,4 @@ vim.opt.signcolumn = "yes"
 
 vim.opt.autoread = true
 
-vim.g.mapleader = " "
-
 vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\.\?\(\w\+\)\@!]]

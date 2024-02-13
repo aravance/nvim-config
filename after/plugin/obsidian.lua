@@ -38,7 +38,6 @@ table.insert(workspaces, {
 obsidian.setup {
   workspaces = workspaces,
 
-  detect_cwd = false,
   log_level = vim.log.levels.INFO,
   templates = {
     subdir = "templates",
