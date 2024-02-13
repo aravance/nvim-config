@@ -4,6 +4,13 @@ local lsp = require('lsp-zero')
 -- this enables neovim lua config documentation and completion
 require('neodev').setup {}
 
+lsp.set_sign_icons {
+  error = '✘',
+  warn = '▲',
+  hint = '⚑',
+  info = '»',
+}
+
 lsp.on_attach(function(_, bufnr)
   local map = function(mode, keys, func, desc)
     if desc then
