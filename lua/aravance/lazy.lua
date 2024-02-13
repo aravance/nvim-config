@@ -16,13 +16,25 @@ end
 ensure_lazy()
 
 return require('lazy').setup({
+
+  'windwp/nvim-autopairs',
+  'lewis6991/gitsigns.nvim',
+  'mbbill/undotree',
+  'tpope/vim-fugitive',
+  'tpope/vim-commentary',
+  'tpope/vim-surround',
+  'tpope/vim-repeat',
+  'tpope/vim-speeddating',
+  'tpope/vim-sleuth',
+  'tpope/vim-unimpaired',
+  'folke/neodev.nvim',
+
   {
     'nvim-telescope/telescope.nvim',
     version = '0.1.x',
     dependencies = { 'nvim-lua/plenary.nvim' }
   },
 
-  { 'windwp/nvim-autopairs' },
   {
     'bluz71/vim-moonfly-colors',
     name = 'moonfly',
@@ -63,17 +75,6 @@ return require('lazy').setup({
       -- { 'pomo.nvim' },                    -- Optional
     },
   },
-
-  { 'lewis6991/gitsigns.nvim' },
-  { 'mbbill/undotree' },
-  { 'tpope/vim-fugitive' },
-  { 'tpope/vim-commentary' },
-  { 'tpope/vim-surround' },
-  { 'tpope/vim-repeat' },
-  { 'tpope/vim-speeddating' },
-  { 'tpope/vim-sleuth' },
-  { 'tpope/vim-unimpaired' },
-  { 'folke/neodev.nvim' },
 
   {
     'nvim-lualine/lualine.nvim',
