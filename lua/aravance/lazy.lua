@@ -16,7 +16,6 @@ end
 ensure_lazy()
 
 return require('lazy').setup({
-  { 'wbthomason/packer.nvim' },
   {
     'nvim-telescope/telescope.nvim',
     version = '0.1.x',
@@ -60,7 +59,7 @@ return require('lazy').setup({
       { 'nvim-lua/plenary.nvim' },
       { 'nvim-telescope/telescope.nvim' },   -- Optional
       { 'hrsh7th/nvim-cmp' },                -- Optional
-      { "nvim-treesitter/nvim-treesitter" }, -- Optional
+      { 'nvim-treesitter/nvim-treesitter' }, -- Optional
       -- { 'pomo.nvim' },                    -- Optional
     },
   },
@@ -78,7 +77,7 @@ return require('lazy').setup({
 
   {
     'nvim-lualine/lualine.nvim',
-    dependencies = { 'nvim-tree/nvim-web-devicons', opt = true }
+    dependencies = { 'nvim-tree/nvim-web-devicons' }
   },
   {
     'chrisgrieser/nvim-genghis',
