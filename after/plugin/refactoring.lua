@@ -1,4 +1,5 @@
 local refactoring = require('refactoring')
+---@diagnostic disable-next-line: missing-fields
 refactoring.setup {}
 
 local function refactor(s)
@@ -16,4 +17,5 @@ keymap({ "n", "x" }, "<leader>ri", refactor('Inline Variable'), "[R]efactor [I]n
 keymap("n", "<leader>rb", refactor('Extract Block'), "[R]efactor Extract [B]lock")
 keymap("n", "<leader>rbf", refactor('Extract Block To File'), "[R]efactor Extract [B]lock to [F]ile")
 
+---@diagnostic disable-next-line: missing-parameter
 keymap({ "n", "x" }, "<leader>rr", function() refactoring.select_refactor() end, "[R]efactor")

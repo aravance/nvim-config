@@ -35,6 +35,7 @@ table.insert(workspaces, {
   path = '~/vaults/personal',
 })
 
+---@diagnostic disable-next-line: missing-fields
 obsidian.setup {
   workspaces = workspaces,
 
@@ -56,6 +57,7 @@ obsidian.setup {
     template = "daily.md",
   },
 
+  ---@diagnostic disable-next-line: missing-fields
   completion = {
     new_notes_location = "notes_subdir",
   },
@@ -122,6 +124,7 @@ obsidian.setup {
       end
     end
 
+    ---@diagnostic disable-next-line: redundant-return-value
     return out
   end,
 }
