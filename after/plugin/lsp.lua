@@ -2,33 +2,22 @@ local lsp = require("lsp-zero")
 
 lsp.preset("recommended")
 
-lsp.ensure_installed({
-  'tsserver',
-  'eslint',
-  'lua_ls',
-  'kotlin_language_server',
-  'gopls',
-  'templ',
-  'jdtls',
-  'html',
-  'htmx',
-})
-
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = lsp.defaults.cmp_mappings({
-  ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  ['<C-y>'] = cmp.mapping.confirm({
-    behavior = cmp.ConfirmBehavior.Insert,
-    select = true,
-  }),
-  ['<C-Space>'] = cmp.mapping.complete {},
-})
-
-lsp.setup_nvim_cmp({
-  mapping = cmp_mappings
-})
+cmp.setup {
+  sources = {
+    { name = 'nvim_lsp' },
+  },
+  mapping = cmp.mapping.preset.insert {
+    ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
+    ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
+    ['<C-y>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    }),
+    ['<C-Space>'] = cmp.mapping.complete {},
+  },
+}
 
 lsp.on_attach(function(_, bufnr)
   local map = function(mode, keys, func, desc)
@@ -80,5 +69,27 @@ lsp.configure('kotlin_language_server', {
   ) or vim.fn.getcwd(),
 })
 
-lsp.nvim_workspace()
+require('mason').setup {}
+require('mason-lspconfig').setup {
+  handlers = {
+    lsp.default_setup,
+    -- TODO use a project specific config instead of global lua_ls setup
+    -- :help lsp-zero-guide:lua-lsp-for-neovim
+    lua_ls = function()
+      lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+    end,
+  },
+  ensure_installed = {
+    'tsserver',
+    'eslint',
+    'lua_ls',
+    'kotlin_language_server',
+    'gopls',
+    'templ',
+    'jdtls',
+    'html',
+    'htmx',
+  },
+}
+
 lsp.setup()

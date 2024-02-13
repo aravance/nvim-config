@@ -10,7 +10,7 @@ function keymap(s, a, f, o)
 end
 
 require("aravance.remap")
-require("aravance.packer")
+require("aravance.lazy")
 require("aravance.set")
 
 vim.g.netrw_banner = 0
