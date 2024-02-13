@@ -27,16 +27,18 @@ lsp.on_attach(function(_, bufnr)
     vim.keymap.set(mode, keys, func, { buffer = bufnr, remap = false, desc = desc })
   end
 
-  map({ 'i', 'n' }, '<C-h>', vim.lsp.buf.signature_help, 'Signature [H]elp')
-  map('n', 'gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-  map('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-  map('n', 'gI', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
-  map('n', 'gr', vim.lsp.buf.references, '[G]oto [R]eferences')
-  map('n', 'K', vim.lsp.buf.hover, 'Hover Documentation')
-  map({ 'n', 'x' }, '<leader>f', vim.lsp.buf.format, '[F]ormat file')
-  map('n', '<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
   map('n', '<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
   map('n', '<leader>vd', vim.diagnostic.open_float, '[V]im [D]iagnostics')
+  map({ 'n', 'x' }, '<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
+  map({ 'n', 'x' }, '<leader>f', vim.lsp.buf.format, '[F]ormat file')
+  map({ 'i', 'n' }, '<C-h>', vim.lsp.buf.signature_help, 'Signature [H]elp')
+  map('n', 'gs', vim.lsp.buf.signature_help, '[S]ignature Help')
+  map('n', 'gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
+  map('n', 'gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
+  map('n', 'gy', vim.lsp.buf.type_definition, '[G]oto T[y]pe Definition')
+  map('n', 'gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation')
+  map('n', 'gr', vim.lsp.buf.references, '[G]oto [R]eferences')
+  map('n', 'K', vim.lsp.buf.hover, 'Hover Documentation')
   map('n', ']d', vim.diagnostic.goto_next, 'Next [D]iagnostic')
   map('n', '[d', vim.diagnostic.goto_prev, 'Previous [D]iagnostic')
 end)
@@ -57,6 +59,7 @@ lsp.configure('htmx', { filetypes = { 'html', 'templ' } })
 lsp.configure('html', { filetypes = { 'html', 'templ' } })
 
 -- setup neodev before lspconfig
+-- this enables neovim lua config documentation and completion
 require('neodev').setup {}
 
 local lspconfig = require('lspconfig')
@@ -73,11 +76,6 @@ require('mason').setup {}
 require('mason-lspconfig').setup {
   handlers = {
     lsp.default_setup,
-    -- TODO use a project specific config instead of global lua_ls setup
-    -- :help lsp-zero-guide:lua-lsp-for-neovim
-    lua_ls = function()
-      lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
-    end,
   },
   ensure_installed = {
     'tsserver',
