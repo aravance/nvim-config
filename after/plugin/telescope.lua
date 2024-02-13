@@ -17,8 +17,8 @@ telescope.setup {
 }
 
 keymap('n', '<leader>gd', builtin.lsp_definitions, '[G]oto [D]efinition')
-keymap('n', '<leader>gD', builtin.lsp_type_definitions, '[G]oto [D]eclaration')
-keymap('n', '<leader>gI', builtin.lsp_implementations, '[G]oto [I]mplementations')
+keymap('n', '<leader>gy', builtin.lsp_type_definitions, '[G]oto T[y]pe Definition')
+keymap('n', '<leader>gi', builtin.lsp_implementations, '[G]oto [I]mplementations')
 keymap('n', '<leader>gr', builtin.lsp_references, '[G]oto [R]eferences')
 keymap('n', '<leader>ds', builtin.lsp_document_symbols, '[D]ocument [S]ymbols')
 keymap('n', '<leader>ws', builtin.lsp_dynamic_workspace_symbols, '[W]orkspace [S]ymbols')
