@@ -22,6 +22,9 @@ keymap('n', '<leader>pd', builtin.diagnostics, '[P]roject [D]iagnostics')
 keymap('n', '<leader>pg', builtin.live_grep, '[P]roject [G]rep')
 keymap('n', '<leader>pw', builtin.grep_string, 'Search [P]roject for current [W]ord')
 keymap('n', '<leader>pf', builtin.find_files, '[P]roject [F]iles')
+keymap('n', '<leader>ph', function()
+  builtin.find_files { hidden = true, file_ignore_patterns = { ".git/" } }
+end, '[P]roject Files (+[h]idden)')
 keymap('n', '<leader>/', function()
   builtin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
     previewer = false,
