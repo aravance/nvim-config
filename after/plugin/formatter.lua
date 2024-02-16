@@ -3,6 +3,9 @@ require('formatter').setup {
     go = {
       require('formatter.filetypes.go').goimports,
     },
+    kotlin = {
+      require('formatter.filetypes.kotlin').ktlint,
+    },
     ['*'] = {
       require('formatter.filetypes.any').remove_trailing_whitespace
     },
