@@ -1,7 +1,10 @@
 return {
   "nvim-telescope/telescope.nvim",
   version = "0.1.x",
-  dependencies = { "nvim-lua/plenary.nvim" },
+  dependencies = {
+    "nvim-lua/plenary.nvim",       -- Required
+    "nvim-tree/nvim-web-devicons", -- Optional
+  },
   keys = function()
     local builtin = require("telescope.builtin")
     local find_hidden_files = function()
