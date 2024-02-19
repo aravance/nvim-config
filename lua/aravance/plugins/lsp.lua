@@ -2,10 +2,11 @@ return {
   "neovim/nvim-lspconfig",
   dependencies = {
     -- LSP Support
-    { "williamboman/mason.nvim" },           -- Optional
-    { "williamboman/mason-lspconfig.nvim" }, -- Optional
-    { "mhartington/formatter.nvim" },        -- Optional
-    { "j-hui/fidget.nvim" },                 -- Optional
+    { "williamboman/mason.nvim" },                   -- Optional
+    { "williamboman/mason-lspconfig.nvim" },         -- Optional
+    { "WhoIsSethDaniel/mason-tool-installer.nvim" }, -- Optional
+    { "mhartington/formatter.nvim" },                -- Optional
+    { "j-hui/fidget.nvim" },                         -- Optional
 
     -- Autocompletion
     { "hrsh7th/nvim-cmp" },         -- Required
@@ -59,12 +60,16 @@ return {
           }
         end,
       },
+    }
+    require('mason-tool-installer').setup {
       ensure_installed = {
         "tsserver",
         "eslint",
         "lua_ls",
         "kotlin_language_server",
+        "ktlint",
         "gopls",
+        "goimports",
         "templ",
         "jdtls",
         "html",
