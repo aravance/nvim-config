@@ -1,50 +1,60 @@
+local workspaces = {}
+if vim.loop.os_uname().sysname == "Darwin" then
+  table.insert(workspaces, {
+    name = "work",
+    path = "~/vaults/work",
+  })
+end
+table.insert(workspaces, {
+  name = "personal",
+  path = "~/vaults/personal",
+})
+
+local function toggle_checkbox(checkmark, affix)
+  local line = vim.api.nvim_get_current_line()
+  if not string.match(line, "^%s*- %[.%]") then
+    -- not a checkbox
+    return
+  end
+  local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+
+  local is_checked = string.match(line, "- %[%S%]")
+  if is_checked then
+    line = string.gsub(line, "- %[%S%]", "- [ ]", 1)
+    line = string.gsub(line, "%s*" .. affix .. " %d%d%d%d%-%d%d%-%d%d", "")
+  else
+    line = string.gsub(line, "- %[ %]", "- [" .. checkmark .. "]")
+    local pattern = "%s?" .. affix .. " %d%d%d%d%-%d%d%-%d%d"
+    if not string.find(line, pattern) then
+      pattern = "%s?$"
+    end
+    line = string.gsub(line, pattern, " " .. affix .. " " .. os.date("%Y-%m-%d"), 1)
+  end
+  vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line })
+end
+
 return {
-  'epwalsh/obsidian.nvim',
-  version = '*', -- use the latest commit
+  "epwalsh/obsidian.nvim",
+  version = "*", -- use the latest commit
   dependencies = {
-    { 'nvim-lua/plenary.nvim' },
-    { 'nvim-telescope/telescope.nvim' },   -- Optional
-    { 'hrsh7th/nvim-cmp' },                -- Optional
-    { 'nvim-treesitter/nvim-treesitter' }, -- Optional
-    -- { 'pomo.nvim' },                    -- Optional
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-telescope/telescope.nvim" },   -- Optional
+    { "hrsh7th/nvim-cmp" },                -- Optional
+    { "nvim-treesitter/nvim-treesitter" }, -- Optional
+    -- { "pomo.nvim" },                    -- Optional
+  },
+  keys = {
+    { "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", desc = "Open [O]bsidian [F]ile" },
+    { "<leader>od", "<cmd>ObsidianToday<CR>",       desc = "[O]bsidian To[d]ay" },
+    { "<leader>oy", "<cmd>ObsidianYesterday<CR>",   desc = "[O]bsidian [Y]esterday" },
+    { "<leader>ot", "<cmd>ObsidianTomorrow<CR>",    desc = "[O]bsidian [T]omorrow" },
+    { "<leader>og", "<cmd>ObsidianSearch<CR>",      desc = "[O]bsidian [G]rep" },
+    { "<leader>ob", "<cmd>ObsidianBacklinks<CR>",   desc = "[O]bsidian [B]acklinks" },
+    { "<leader>oa", "<cmd>ObsidianTags<CR>",        desc = "[O]bsidian T[a]gs" },
+    { "<leader>op", "<cmd>ObsidianTemplate<CR>",    desc = "[O]bsidian Tem[p]late" },
   },
   config = function()
-    local obsidian = require('obsidian')
-
-    local function toggle_checkbox(checkmark, affix)
-      local line = vim.api.nvim_get_current_line()
-      if not string.match(line, '^%s*- %[.%]') then
-        -- not a checkbox
-        return
-      end
-      local row, _ = unpack(vim.api.nvim_win_get_cursor(0))
-
-      local is_checked = string.match(line, '- %[%S%]')
-      if is_checked then
-        line = string.gsub(line, '- %[%S%]', '- [ ]', 1)
-        line = string.gsub(line, '%s*' .. affix .. ' %d%d%d%d%-%d%d%-%d%d', '')
-      else
-        line = string.gsub(line, '- %[ %]', '- [' .. checkmark .. ']')
-        local pattern = '%s?' .. affix .. ' %d%d%d%d%-%d%d%-%d%d'
-        if not string.find(line, pattern) then
-          pattern = '%s?$'
-        end
-        line = string.gsub(line, pattern, ' ' .. affix .. ' ' .. os.date('%Y-%m-%d'), 1)
-      end
-      vim.api.nvim_buf_set_lines(0, row - 1, row, true, { line })
-    end
-
-    local workspaces = {}
-    if vim.loop.os_uname().sysname == "Darwin" then
-      table.insert(workspaces, {
-        name = 'work',
-        path = '~/vaults/work',
-      })
-    end
-    table.insert(workspaces, {
-      name = 'personal',
-      path = '~/vaults/personal',
-    })
+    local obsidian = require("obsidian")
 
     ---@diagnostic disable-next-line: missing-fields
     obsidian.setup {
@@ -55,8 +65,8 @@ return {
         subdir = "templates",
         date_format = "%Y-%m-%d",
         substitutions = {
-          ['date:MMMM D, YYYY'] = function()
-            return os.date('%B %-d, %Y')
+          ["date:MMMM D, YYYY"] = function()
+            return os.date("%B %-d, %Y")
           end,
         },
       },
@@ -74,7 +84,7 @@ return {
       },
 
       mappings = {
-        -- Overrides the 'gf' mapping to work on markdown/wiki links within your vault
+        -- Overrides the "gf" mapping to work on markdown/wiki links within your vault
         ["gf"] = {
           action = function()
             return obsidian.util.gf_passthrough()
@@ -83,11 +93,11 @@ return {
         },
         -- Toggle check-boxes with tasks support
         ["<leader>cc"] = {
-          action = function() toggle_checkbox('-', '❌') end,
+          action = function() toggle_checkbox("-", "❌") end,
           opts = { buffer = true },
         },
         ["<leader>ch"] = {
-          action = function() toggle_checkbox('x', '✅') end,
+          action = function() toggle_checkbox("x", "✅") end,
           opts = { buffer = true },
         },
       },
@@ -118,7 +128,7 @@ return {
           local aliases = {}
           local index = 1
           for k, v in pairs(note.aliases) do
-            print('aliases.' .. tostring(k) .. ' = ' .. tostring(v))
+            print("aliases." .. tostring(k) .. " = " .. tostring(v))
             if is_daily or v ~= note.id then
               aliases[index] = v
               index = index + 1
@@ -139,14 +149,5 @@ return {
         return out
       end,
     }
-
-    keymap("n", "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", "Open [O]bsidian [F]ile")
-    keymap("n", "<leader>od", "<cmd>ObsidianToday<CR>", "[O]bsidian To[d]ay")
-    keymap("n", "<leader>oy", "<cmd>ObsidianYesterday<CR>", "[O]bsidian [Y]esterday")
-    keymap("n", "<leader>ot", "<cmd>ObsidianTomorrow<CR>", "[O]bsidian [T]omorrow")
-    keymap("n", "<leader>og", "<cmd>ObsidianSearch<CR>", "[O]bsidian [G]rep")
-    keymap("n", "<leader>ob", "<cmd>ObsidianBacklinks<CR>", "[O]bsidian [B]acklinks")
-    keymap("n", "<leader>oa", "<cmd>ObsidianTags<CR>", "[O]bsidian T[a]gs")
-    keymap("n", "<leader>op", "<cmd>ObsidianTemplate<CR>", "[O]bsidian Tem[p]late")
   end,
 }

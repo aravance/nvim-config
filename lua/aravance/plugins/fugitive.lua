@@ -1,5 +1,10 @@
 return {
-  'tpope/vim-fugitive',
+  "tpope/vim-fugitive",
+  keys = {
+    { "<leader>gs", vim.cmd.Git,            desc = "[G]it [S]tart" },
+    { "gh",         "<cmd>diffget //2<CR>", desc = "[G]it Select Left" },
+    { "gl",         "<cmd>diffget //3<CR>", desc = "[G]it Select Right" },
+  },
   config = function()
     local fugitive_window = vim.api.nvim_create_augroup("fugitive_window", {})
 
@@ -29,9 +34,5 @@ return {
         vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts);
       end,
     })
-
-    keymap("n", "<leader>gs", vim.cmd.Git, "[G]it [S]tart")
-    keymap("n", "gh", "<cmd>diffget //2<CR>", "[G]it Select Left")
-    keymap("n", "gl", "<cmd>diffget //3<CR>", "[G]it Select Right")
   end,
 }
