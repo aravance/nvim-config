@@ -6,18 +6,21 @@ return {
   },
   keys = function()
     local refactoring = require("refactoring")
-  return {
-    { "<leader>re",  mode = "x",          function() refactoring.refactor("Extract Function") end,         desc = "[R]efactor [E]xtract Function" },
-    { "<leader>rf",  mode = "x",          function() refactoring.refactor("Extract Function To File") end, desc = "[R]efactor Extract to [F]ile" },
-    { "<leader>rv",  mode = "x",          function() refactoring.refactor("Extract Variable") end,         desc = "[R]efactor Extract [V]ariable" },
-    { "<leader>rI",  mode = "n",          function() refactoring.refactor("Inline Function") end,          desc = "[R]efactor [I]nline Function" },
-    { "<leader>ri",  mode = { "n", "x" }, function() refactoring.refactor("Inline Variable") end,          desc = "[R]efactor [I]nline Variable" },
-    { "<leader>rb",  mode = "n",          function() refactoring.refactor("Extract Block") end,            desc = "[R]efactor Extract [B]lock" },
-    { "<leader>rbf", mode = "n",          function() refactoring.refactor("Extract Block To File") end,    desc = "[R]efactor Extract [B]lock to [F]ile" },
+    local function refactor(s)
+      return function() refactoring.refactor(s) end
+    end
+    return {
+      { mode = "x",          "<leader>re",  refactor("Extract Function"),                 desc = "[R]efactor [E]xtract Function" },
+      { mode = "x",          "<leader>rf",  refactor("Extract Function To File"),         desc = "[R]efactor Extract to [F]ile" },
+      { mode = "x",          "<leader>rv",  refactor("Extract Variable"),                 desc = "[R]efactor Extract [V]ariable" },
+      { mode = "n",          "<leader>rI",  refactor("Inline Function"),                  desc = "[R]efactor [I]nline Function" },
+      { mode = { "n", "x" }, "<leader>ri",  refactor("Inline Variable"),                  desc = "[R]efactor [I]nline Variable" },
+      { mode = "n",          "<leader>rb",  refactor("Extract Block"),                    desc = "[R]efactor Extract [B]lock" },
+      { mode = "n",          "<leader>rbf", refactor("Extract Block To File"),            desc = "[R]efactor Extract [B]lock to [F]ile" },
 
-    ---@diagnostic disable-next-line: missing-parameter
-    { "<leader>rr",  mode = { "n", "x" }, function() refactoring.select_refactor() end,                    desc = "[R]efactor" },
-  }
+      ---@diagnostic disable-next-line: missing-parameter
+      { mode = { "n", "x" }, "<leader>rr",  refactoring.select_refactor, desc = "[R]efactor" },
+    }
   end,
   config = function()
     ---@diagnostic disable-next-line: missing-fields

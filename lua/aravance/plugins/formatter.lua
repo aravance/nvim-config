@@ -1,13 +1,13 @@
 return {
-  'mhartington/formatter.nvim',
+  "mhartington/formatter.nvim",
   config = function()
-    require('formatter').setup {
+    require("formatter").setup {
       filetype = {
         go = {
-          require('formatter.filetypes.go').goimports,
+          require("formatter.filetypes.go").goimports,
         },
         kotlin = {
-          require('formatter.filetypes.kotlin').ktlint,
+          require("formatter.filetypes.kotlin").ktlint,
         },
         lua = {
           vim.lsp.buf.format,
@@ -17,16 +17,16 @@ return {
             vim.cmd [[silent %!templ fmt]]
           end,
         },
-        ['*'] = {
-          require('formatter.filetypes.any').remove_trailing_whitespace
+        ["*"] = {
+          require("formatter.filetypes.any").remove_trailing_whitespace
         },
       }
     }
 
-    vim.api.nvim_create_augroup('__formatter__', { clear = true })
-    vim.api.nvim_create_autocmd('BufWritePost', {
-      group = '__formatter__',
-      command = ':FormatWrite',
+    vim.api.nvim_create_augroup("__formatter__", { clear = true })
+    vim.api.nvim_create_autocmd("BufWritePost", {
+      group = "__formatter__",
+      command = ":FormatWrite",
     })
   end,
 }
