@@ -1,11 +1,11 @@
 return {
-  'VonHeikemen/lsp-zero.nvim',
+  'neovim/nvim-lspconfig',
   dependencies = {
     -- LSP Support
-    { 'neovim/nvim-lspconfig' },             -- Required
     { 'williamboman/mason.nvim' },           -- Optional
     { 'williamboman/mason-lspconfig.nvim' }, -- Optional
     { 'mhartington/formatter.nvim' },        -- Optional
+    { 'j-hui/fidget.nvim' },                 -- Optional
 
     -- Autocompletion
     { 'hrsh7th/nvim-cmp' },         -- Required
@@ -21,53 +21,43 @@ return {
 
     -- Neovim lua support
     { 'folke/neodev.nvim' },
-    { 'j-hui/fidget.nvim' },
   },
   config = function()
-    local lsp = require('lsp-zero')
-
     -- setup neodev before lspconfig
     -- this enables neovim lua config documentation and completion
     require('neodev').setup {}
 
-    lsp.set_sign_icons {
-      error = '✘',
-      warn = '▲',
-      hint = '⚑',
-      info = '»',
-    }
-
-    lsp.format_on_save {
-      format_opts = {
-        async = false,
-        timeout_ms = 5000,
-      },
-      servers = {
-        ['lua_ls'] = { 'lua' },
-        ['templ'] = { 'templ' },
-      }
-    }
-
     vim.filetype.add({ extension = { templ = 'templ' } })
-    lsp.configure('htmx', { filetypes = { 'html', 'templ' } })
-    lsp.configure('html', { filetypes = { 'html', 'templ' } })
 
     -- add kotlin workspace detection
     local lspconfig = require('lspconfig')
-    lsp.configure('kotlin_language_server', {
+    lspconfig.kotlin_language_server.setup {
       workspaceFolders = true,
       root_dir = lspconfig.util.root_pattern(
         'packageInfo',
         { 'settings.gradle', 'settings.gradle.kts' },
         { 'build.gradle', 'build.gradle.kts' }
       ) or vim.fn.getcwd(),
-    })
+    }
+
+    local cmp = require('cmp')
+    local cmp_lsp = require('cmp_nvim_lsp')
+    local capabilities = vim.tbl_deep_extend(
+      "force",
+      {},
+      vim.lsp.protocol.make_client_capabilities(),
+      cmp_lsp.default_capabilities()
+    )
 
     require('fidget').setup {}
     require('mason').setup {}
     require('mason-lspconfig').setup {
       handlers = {
-        lsp.default_setup,
+        function(server_name)
+          lspconfig[server_name].setup {
+            capabilities = capabilities,
+          }
+        end,
       },
       ensure_installed = {
         'tsserver',
@@ -85,9 +75,13 @@ return {
     -- load rafamadriz/friendly-snippets
     require('luasnip.loaders.from_vscode').lazy_load()
 
-    local cmp = require('cmp')
     local cmp_select = { behavior = cmp.SelectBehavior.Select }
     cmp.setup {
+      snippet = {
+        expand = function(args)
+          require('luasnip').lsp_expand(args.body)
+        end
+      },
       sources = {
         { name = 'path' },
         { name = 'nvim_lsp' },
@@ -95,7 +89,6 @@ return {
         { name = 'luasnip', keyword_length = 2 },
         { name = 'buffer',  keyword_length = 3 },
       },
-      formatting = lsp.cmp_format(),
       mapping = cmp.mapping.preset.insert {
         ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
         ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
