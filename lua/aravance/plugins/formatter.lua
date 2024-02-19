@@ -1,3 +1,6 @@
+return {
+     'mhartington/formatter.nvim',
+config = function()
 require('formatter').setup {
   filetype = {
     go = {
@@ -17,3 +20,5 @@ vim.api.nvim_create_autocmd('BufWritePost', {
   group = '__formatter__',
   command = ':FormatWrite',
 })
+end,
+}
