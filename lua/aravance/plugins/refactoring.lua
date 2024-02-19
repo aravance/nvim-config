@@ -1,30 +1,26 @@
 return {
-  'theprimeagen/refactoring.nvim',
+  "theprimeagen/refactoring.nvim",
   dependencies = {
-    { 'nvim-lua/plenary.nvim' },
-    { 'nvim-treesitter/nvim-treesitter' },
+    { "nvim-lua/plenary.nvim" },
+    { "nvim-treesitter/nvim-treesitter" },
   },
-  config = function()
-    local refactoring = require('refactoring')
-    ---@diagnostic disable-next-line: missing-fields
-    refactoring.setup {}
-
-    local function refactor(s)
-      return function()
-        refactoring.refactor(s)
-      end
-    end
-
-    keymap("x", "<leader>re", refactor('Extract Function'), "[R]efactor [E]xtract Function")
-    keymap("x", "<leader>rf", refactor('Extract Function To File'), "[R]efactor Extract to [F]ile")
-    keymap("x", "<leader>rv", refactor('Extract Variable'), "[R]efactor Extract [V]ariable")
-    keymap("n", "<leader>rI", refactor('Inline Function'), "[R]efactor [I]nline Function")
-    keymap({ "n", "x" }, "<leader>ri", refactor('Inline Variable'), "[R]efactor [I]nline Variable")
-
-    keymap("n", "<leader>rb", refactor('Extract Block'), "[R]efactor Extract [B]lock")
-    keymap("n", "<leader>rbf", refactor('Extract Block To File'), "[R]efactor Extract [B]lock to [F]ile")
+  keys = function()
+    local refactoring = require("refactoring")
+  return {
+    { "<leader>re",  mode = "x",          function() refactoring.refactor("Extract Function") end,         desc = "[R]efactor [E]xtract Function" },
+    { "<leader>rf",  mode = "x",          function() refactoring.refactor("Extract Function To File") end, desc = "[R]efactor Extract to [F]ile" },
+    { "<leader>rv",  mode = "x",          function() refactoring.refactor("Extract Variable") end,         desc = "[R]efactor Extract [V]ariable" },
+    { "<leader>rI",  mode = "n",          function() refactoring.refactor("Inline Function") end,          desc = "[R]efactor [I]nline Function" },
+    { "<leader>ri",  mode = { "n", "x" }, function() refactoring.refactor("Inline Variable") end,          desc = "[R]efactor [I]nline Variable" },
+    { "<leader>rb",  mode = "n",          function() refactoring.refactor("Extract Block") end,            desc = "[R]efactor Extract [B]lock" },
+    { "<leader>rbf", mode = "n",          function() refactoring.refactor("Extract Block To File") end,    desc = "[R]efactor Extract [B]lock to [F]ile" },
 
     ---@diagnostic disable-next-line: missing-parameter
-    keymap({ "n", "x" }, "<leader>rr", function() refactoring.select_refactor() end, "[R]efactor")
+    { "<leader>rr",  mode = { "n", "x" }, function() refactoring.select_refactor() end,                    desc = "[R]efactor" },
+  }
+  end,
+  config = function()
+    ---@diagnostic disable-next-line: missing-fields
+    require("refactoring").setup {}
   end,
 }
