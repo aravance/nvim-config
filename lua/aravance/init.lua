@@ -21,7 +21,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>rn", vim.lsp.buf.rename, "[R]e[n]ame")
     map("n", "<leader>vd", vim.diagnostic.open_float, "[V]im [D]iagnostics")
     map({ "n", "x" }, "<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
-    map({ "n", "x" }, "<leader>f", vim.lsp.buf.format, "[F]ormat file")
     map({ "i", "n" }, "<C-h>", vim.lsp.buf.signature_help, "Signature [H]elp")
     map("n", "gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
     map("n", "gd", telescope.lsp_definitions, "[G]oto [D]efinition")
