@@ -1,8 +1,7 @@
 return {
-  "tpope/vim-commentary",
-  "tpope/vim-surround",
-  "tpope/vim-repeat",
-  "tpope/vim-speeddating",
   "tpope/vim-sleuth",
-  "tpope/vim-unimpaired",
+  { "echasnovski/mini.ai",        opts = {} },
+  { "echasnovski/mini.bracketed", opts = {} },
+  { "echasnovski/mini.comment",   opts = {} },
+  { "echasnovski/mini.surround",  opts = {} },
 }
