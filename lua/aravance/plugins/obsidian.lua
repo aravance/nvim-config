@@ -53,101 +53,92 @@ return {
     { "<leader>oa", "<cmd>ObsidianTags<CR>",        desc = "[O]bsidian T[a]gs" },
     { "<leader>op", "<cmd>ObsidianTemplate<CR>",    desc = "[O]bsidian Tem[p]late" },
   },
-  config = function()
-    local obsidian = require("obsidian")
+  opts = {
+    workspaces = workspaces,
 
-    ---@diagnostic disable-next-line: missing-fields
-    obsidian.setup {
-      workspaces = workspaces,
-
-      log_level = vim.log.levels.INFO,
-      templates = {
-        subdir = "templates",
-        date_format = "%Y-%m-%d",
-        substitutions = {
-          ["date:MMMM D, YYYY"] = function()
-            return os.date("%B %-d, %Y")
-          end,
-        },
+    log_level = vim.log.levels.INFO,
+    templates = {
+      subdir = "templates",
+      date_format = "%Y-%m-%d",
+      substitutions = {
+        ["date:MMMM D, YYYY"] = function()
+          return os.date("%B %-d, %Y")
+        end,
       },
+    },
 
-      notes_subdir = "notes",
+    notes_subdir = "notes",
+    new_notes_location = "notes_subdir",
 
-      daily_notes = {
-        folder = "daily",
-        template = "daily.md",
+    daily_notes = {
+      folder = "daily",
+      template = "daily.md",
+    },
+
+    mappings = {
+      -- Overrides the "gf" mapping to work on markdown/wiki links within your vault
+      ["gf"] = {
+        action = function()
+          return require("obsidian").util.gf_passthrough()
+        end,
+        opts = { noremap = false, expr = true, buffer = true },
       },
-
-      ---@diagnostic disable-next-line: missing-fields
-      completion = {
-        new_notes_location = "notes_subdir",
+      -- Toggle check-boxes with tasks support
+      ["<leader>cc"] = {
+        action = function() toggle_checkbox("-", "❌") end,
+        opts = { buffer = true },
       },
-
-      mappings = {
-        -- Overrides the "gf" mapping to work on markdown/wiki links within your vault
-        ["gf"] = {
-          action = function()
-            return obsidian.util.gf_passthrough()
-          end,
-          opts = { noremap = false, expr = true, buffer = true },
-        },
-        -- Toggle check-boxes with tasks support
-        ["<leader>cc"] = {
-          action = function() toggle_checkbox("-", "❌") end,
-          opts = { buffer = true },
-        },
-        ["<leader>ch"] = {
-          action = function() toggle_checkbox("x", "✅") end,
-          opts = { buffer = true },
-        },
+      ["<leader>ch"] = {
+        action = function() toggle_checkbox("x", "✅") end,
+        opts = { buffer = true },
       },
+    },
 
-      -- disable default zettelkasten id, just use the title
-      note_id_func = function(title) return title end,
-      follow_url_func = function(url)
-        local opencmd
-        if vim.loop.os_uname().sysname == "Linux" then
-          opencmd = "xdg-open"
-        else
-          opencmd = "open"
+    -- disable default zettelkasten id, just use the title
+    note_id_func = function(title) return title end,
+    follow_url_func = function(url)
+      local opencmd
+      if vim.loop.os_uname().sysname == "Linux" then
+        opencmd = "xdg-open"
+      else
+        opencmd = "open"
+      end
+      vim.fn.jobstart({ opencmd, url })
+    end,
+    note_frontmatter_func = function(note)
+      local out = { tags = note.tags }
+
+      local is_daily = false
+      for _, tag in pairs(note.tags) do
+        if tag == "daily-notes" then
+          is_daily = true
+          break
         end
-        vim.fn.jobstart({ opencmd, url })
-      end,
-      note_frontmatter_func = function(note)
-        local out = { tags = note.tags }
+      end
 
-        local is_daily = false
-        for _, tag in pairs(note.tags) do
-          if tag == "daily-notes" then
-            is_daily = true
-            break
+      if note.aliases ~= nil and not vim.tbl_isempty(note.aliases) then
+        local aliases = {}
+        local index = 1
+        for k, v in pairs(note.aliases) do
+          print("aliases." .. tostring(k) .. " = " .. tostring(v))
+          if is_daily or v ~= note.id then
+            aliases[index] = v
+            index = index + 1
           end
         end
-
-        if note.aliases ~= nil and not vim.tbl_isempty(note.aliases) then
-          local aliases = {}
-          local index = 1
-          for k, v in pairs(note.aliases) do
-            print("aliases." .. tostring(k) .. " = " .. tostring(v))
-            if is_daily or v ~= note.id then
-              aliases[index] = v
-              index = index + 1
-            end
-          end
-          if not vim.tbl_isempty(aliases) then
-            out.aliases = aliases
-          end
+        if not vim.tbl_isempty(aliases) then
+          out.aliases = aliases
         end
+      end
 
-        if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
-          for k, v in pairs(note.metadata) do
-            out[k] = v
-          end
+      if note.metadata ~= nil and not vim.tbl_isempty(note.metadata) then
+        for k, v in pairs(note.metadata) do
+          out[k] = v
         end
+      end
 
-        ---@diagnostic disable-next-line: redundant-return-value
-        return out
-      end,
-    }
-  end,
+      ---@diagnostic disable-next-line: redundant-return-value
+      return out
+    end,
+  },
 }
