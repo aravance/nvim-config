@@ -30,7 +30,5 @@ vim.api.nvim_create_autocmd("LspAttach", {
     map("n", "<leader>ds", telescope.lsp_document_symbols, "[D]ocument [S]ymbols")
     map("n", "<leader>ws", telescope.lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
     map("n", "K", vim.lsp.buf.hover, "Hover Documentation")
-    map("n", "]d", vim.diagnostic.goto_next, "Next [D]iagnostic")
-    map("n", "[d", vim.diagnostic.goto_prev, "Previous [D]iagnostic")
   end,
 })

@@ -3,18 +3,14 @@ return {
   dependencies = {
     -- Neovim lua support
     -- do this first to make sure it's setup before the lsp
-    {
-      "folke/neodev.nvim", -- Optional
-      opts = {},
-    },
+    { "folke/neodev.nvim",       opts = {} },
 
     -- LSP Support
+    "stevearc/conform.nvim",
+    { "j-hui/fidget.nvim",       opts = {} },
+    { "williamboman/mason.nvim", opts = {} },
     {
-      "williamboman/mason.nvim", -- Optional
-      opts = {},
-    },
-    {
-      "williamboman/mason-lspconfig.nvim", -- Optional
+      "williamboman/mason-lspconfig.nvim",
       opts = {
         handlers = {
           function(server_name)
@@ -31,7 +27,7 @@ return {
       },
     },
     {
-      "WhoIsSethDaniel/mason-tool-installer.nvim", -- Optional
+      "WhoIsSethDaniel/mason-tool-installer.nvim",
       opts = {
         ensure_installed = {
           "tsserver",
@@ -48,15 +44,10 @@ return {
         },
       },
     },
-    { "stevearc/conform.nvim" }, -- Optional
-    {
-      "j-hui/fidget.nvim",       -- Optional
-      opts = {},
-    },
 
     -- Autocompletion
     {
-      "hrsh7th/nvim-cmp", -- Required
+      "hrsh7th/nvim-cmp",
       opts = {
         snippet = {
           expand = function(args)
@@ -78,14 +69,14 @@ return {
         },
       },
     },
-    { "hrsh7th/cmp-nvim-lsp" },     -- Required
-    { "hrsh7th/cmp-buffer" },       -- Optional
-    { "hrsh7th/cmp-path" },         -- Optional
-    { "saadparwaiz1/cmp_luasnip" }, -- Optional
-    { "hrsh7th/cmp-nvim-lua" },     -- Optional
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "saadparwaiz1/cmp_luasnip",
+    "hrsh7th/cmp-nvim-lua",
 
     -- Snippets
-    { "L3MON4D3/LuaSnip" }, -- Required
+    "L3MON4D3/LuaSnip",
 
   },
   config = function()
