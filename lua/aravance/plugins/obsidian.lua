@@ -10,6 +10,12 @@ table.insert(workspaces, {
   path = "~/vaults/personal",
 })
 
+local events = {}
+for _, ws in pairs(workspaces) do
+  table.insert(events, "BufReadPre " .. ws.path .. "/**.md")
+  table.insert(events, "BufNewFile " .. ws.path .. "/**.md")
+end
+
 local function toggle_checkbox(checkmark, affix)
   local line = vim.api.nvim_get_current_line()
   if not string.match(line, "^%s*- %[.%]") then
@@ -36,10 +42,12 @@ end
 return {
   "epwalsh/obsidian.nvim",
   version = "*", -- use the latest commit
+  ft = "markdown",
+  event = events,
   dependencies = {
-    { "nvim-lua/plenary.nvim" },
-    { "nvim-telescope/telescope.nvim" },   -- Optional
+    { "nvim-lua/plenary.nvim" },           -- Required
     { "hrsh7th/nvim-cmp" },                -- Optional
+    { "nvim-telescope/telescope.nvim" },   -- Optional
     { "nvim-treesitter/nvim-treesitter" }, -- Optional
     -- { "pomo.nvim" },                    -- Optional
   },
@@ -119,8 +127,7 @@ return {
       if note.aliases ~= nil and not vim.tbl_isempty(note.aliases) then
         local aliases = {}
         local index = 1
-        for k, v in pairs(note.aliases) do
-          print("aliases." .. tostring(k) .. " = " .. tostring(v))
+        for _, v in pairs(note.aliases) do
           if is_daily or v ~= note.id then
             aliases[index] = v
             index = index + 1
