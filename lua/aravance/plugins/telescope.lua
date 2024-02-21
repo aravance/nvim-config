@@ -25,22 +25,17 @@ return {
       { "<C-p>",      builtin.git_files,     desc = "Goto [P]roject git files" },
     }
   end,
-  config = function()
-    local telescope = require("telescope")
-    local actions = require("telescope.actions")
-
-    telescope.setup {
-      defaults = {
-        mappings = {
-          i = {
-            ["<C-y>"] = actions.select_default,
-            ["<C-h>"] = actions.which_key,
-          },
-          n = {
-            ["<C-y>"] = actions.select_default,
-          },
+  opts = {
+    defaults = {
+      mappings = {
+        i = {
+          ["<C-y>"] = require("telescope.actions").select_default,
+          ["<C-h>"] = require("telescope.actions").which_key,
+        },
+        n = {
+          ["<C-y>"] = require("telescope.actions").select_default,
         },
       },
-    }
-  end,
+    },
+  },
 }
