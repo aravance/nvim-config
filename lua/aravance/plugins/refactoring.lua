@@ -18,7 +18,6 @@ return {
       { mode = "n",          "<leader>rb",  refactor("Extract Block"),            desc = "[R]efactor Extract [B]lock" },
       { mode = "n",          "<leader>rbf", refactor("Extract Block To File"),    desc = "[R]efactor Extract [B]lock to [F]ile" },
 
-      ---@diagnostic disable-next-line: missing-parameter
       { mode = { "n", "x" }, "<leader>rr",  refactoring.select_refactor,          desc = "[R]efactor" },
     }
   end,

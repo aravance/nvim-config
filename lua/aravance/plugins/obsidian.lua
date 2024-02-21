@@ -137,7 +137,6 @@ return {
         end
       end
 
-      ---@diagnostic disable-next-line: redundant-return-value
       return out
     end,
   },
