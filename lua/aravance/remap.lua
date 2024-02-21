@@ -37,7 +37,7 @@ keymap({ "n", "v" }, "<leader>y", "\"+y", "Yank to clipboard")
 keymap({ "n", "v" }, "<leader>Y", "\"+Y", "Yank to clipboard")
 
 keymap("n", "Q", "<nop>")
-keymap("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>", "tmux-sessionizer")
+keymap("n", "<C-f>", "<cmd>silent !tmux popup -E tmux-sessionizer<CR>", "tmux-sessionizer")
 
 keymap("n", "<C-k>", "<cmd>cnext<CR>zz", "Next error")
 keymap("n", "<C-j>", "<cmd>cprev<CR>zz", "Previous error")
