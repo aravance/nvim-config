@@ -45,21 +45,22 @@ return {
   ft = "markdown",
   event = events,
   dependencies = {
-    { "nvim-lua/plenary.nvim" },           -- Required
-    { "hrsh7th/nvim-cmp" },                -- Optional
-    { "nvim-telescope/telescope.nvim" },   -- Optional
-    { "nvim-treesitter/nvim-treesitter" }, -- Optional
-    -- { "pomo.nvim" },                    -- Optional
+    "nvim-lua/plenary.nvim",           -- Required
+    "hrsh7th/nvim-cmp",                -- Optional
+    "nvim-telescope/telescope.nvim",   -- Optional
+    "nvim-treesitter/nvim-treesitter", -- Optional
+    -- "pomo.nvim",                    -- Optional
   },
   keys = {
-    { "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", desc = "Open [O]bsidian [F]ile" },
-    { "<leader>od", "<cmd>ObsidianToday<CR>",       desc = "[O]bsidian To[d]ay" },
-    { "<leader>oy", "<cmd>ObsidianYesterday<CR>",   desc = "[O]bsidian [Y]esterday" },
-    { "<leader>ot", "<cmd>ObsidianTomorrow<CR>",    desc = "[O]bsidian [T]omorrow" },
-    { "<leader>og", "<cmd>ObsidianSearch<CR>",      desc = "[O]bsidian [G]rep" },
-    { "<leader>ob", "<cmd>ObsidianBacklinks<CR>",   desc = "[O]bsidian [B]acklinks" },
-    { "<leader>oa", "<cmd>ObsidianTags<CR>",        desc = "[O]bsidian T[a]gs" },
-    { "<leader>op", "<cmd>ObsidianTemplate<CR>",    desc = "[O]bsidian Tem[p]late" },
+    { "<leader>of", "<cmd>ObsidianQuickSwitch<CR>", desc = "Open [O]bsidian [f]ile" },
+    { "<leader>od", "<cmd>ObsidianToday<CR>",       desc = "[O]bsidian to[d]ay" },
+    { "<leader>oy", "<cmd>ObsidianYesterday<CR>",   desc = "[O]bsidian [y]esterday" },
+    { "<leader>ot", "<cmd>ObsidianTomorrow<CR>",    desc = "[O]bsidian [t]omorrow" },
+    { "<leader>og", "<cmd>ObsidianSearch<CR>",      desc = "[O]bsidian [g]rep" },
+    { "<leader>ob", "<cmd>ObsidianBacklinks<CR>",   desc = "[O]bsidian [b]acklinks" },
+    { "<leader>oa", "<cmd>ObsidianTags<CR>",        desc = "[O]bsidian t[a]gs" },
+    { "<leader>op", "<cmd>ObsidianTemplate<CR>",    desc = "[O]bsidian tem[p]late" },
+    { "<leader>ow", "<cmd>ObsidianWorkspace<CR>",   desc = "[O]bsidian switch [w]orkspace" },
   },
   opts = {
     workspaces = workspaces,
