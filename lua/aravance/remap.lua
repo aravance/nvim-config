@@ -50,3 +50,7 @@ keymap("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make e
 keymap("c", "w!!", "execute 'silent! write !sudo tee % >/dev/null' <bar> edit!")
 
 keymap("v", "gs", "<cmd>'<,'>sort<CR>", "Sort lines")
+
+keymap("n", "z=", function()
+  require("telescope.builtin").spell_suggest(require("telescope.themes").get_cursor())
+end, "Spelling suggestions")
