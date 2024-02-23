@@ -1,16 +1,18 @@
 return {
   "neovim/nvim-lspconfig",
+  event = "VeryLazy",
   dependencies = {
     -- Neovim lua support
     -- do this first to make sure it's setup before the lsp
-    { "folke/neodev.nvim",       opts = {} },
+    { "folke/neodev.nvim",       event = "VeryLazy", opts = {} },
 
     -- LSP Support
     "stevearc/conform.nvim",
-    { "j-hui/fidget.nvim",       opts = {} },
-    { "williamboman/mason.nvim", opts = {} },
+    { "j-hui/fidget.nvim",       event = "VeryLazy", opts = {} },
+    { "williamboman/mason.nvim", event = "VeryLazy", opts = {} },
     {
       "williamboman/mason-lspconfig.nvim",
+      event = "VeryLazy",
       opts = {
         handlers = {
           function(server_name)
@@ -28,6 +30,7 @@ return {
     },
     {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
+      event = "VeryLazy",
       opts = {
         ensure_installed = {
           "tsserver",
@@ -48,6 +51,7 @@ return {
     -- Autocompletion
     {
       "hrsh7th/nvim-cmp",
+      event = "VeryLazy",
       opts = {
         snippet = {
           expand = function(args)

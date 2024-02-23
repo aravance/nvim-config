@@ -1,5 +1,6 @@
 return {
   "theprimeagen/harpoon",
+  event = "VeryLazy",
   dependencies = { "nvim-lua/plenary.nvim" },
   keys = {
     { "<C-g>",     function() require("harpoon.ui").toggle_quick_menu() end, desc = "Harpoon Menu" },

@@ -1,9 +1,10 @@
 return {
   "nvim-telescope/telescope.nvim",
   version = "0.1.x",
+  event = "VeryLazy",
   dependencies = {
-    "nvim-lua/plenary.nvim",       -- Required
-    "nvim-tree/nvim-web-devicons", -- Optional
+    { "nvim-lua/plenary.nvim",       event = "VeryLazy" }, -- Required
+    { "nvim-tree/nvim-web-devicons", event = "VeryLazy" }, -- Optional
   },
   keys = function()
     local builtin = require("telescope.builtin")
