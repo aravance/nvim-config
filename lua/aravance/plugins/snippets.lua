@@ -1,5 +1,6 @@
 return {
   "L3MON4D3/LuaSnip",
+  event = "VeryLazy",
   dependencies = { "rafamadriz/friendly-snippets" }, -- Optional
   keys = {
     { mode = "i",          "<C-K>", function() require("luasnip")() end,   desc = "Expand snippet" },
