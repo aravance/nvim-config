@@ -10,6 +10,11 @@ table.insert(workspaces, {
   path = "~/vaults/personal",
 })
 
+local stat = vim.loop.fs_stat(vim.fn.expand("~") .. "/vaults/work/config.lua")
+if stat and stat.type == "file" then
+  dofile(vim.fn.expand("~") .. "/vaults/work/config.lua")
+end
+
 local events = {}
 for _, ws in pairs(workspaces) do
   table.insert(events, "BufReadPre " .. ws.path .. "/**.md")
