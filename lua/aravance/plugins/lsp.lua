@@ -1,3 +1,11 @@
+if vim.loop.os_uname().sysname == "Darwin" then
+  local lsp_vault_file = vim.fn.expand("~") .. "/vaults/work/lsp.lua"
+  local stat = vim.loop.fs_stat(lsp_vault_file)
+  if stat and stat.type == "file" then
+    dofile(lsp_vault_file)
+  end
+end
+
 return {
   "neovim/nvim-lspconfig",
   event = "VeryLazy",
@@ -17,12 +25,17 @@ return {
         handlers = {
           function(server_name)
             require("lspconfig")[server_name].setup {
+              on_attach = function()
+                if work_lsp_on_attach then
+                  work_lsp_on_attach()
+                end
+              end,
               capabilities = vim.tbl_deep_extend(
                 "force",
                 {},
                 vim.lsp.protocol.make_client_capabilities(),
                 require("cmp_nvim_lsp").default_capabilities()
-              )
+              ),
             }
           end,
         },
