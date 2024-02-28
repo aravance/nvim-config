@@ -8,12 +8,16 @@ return {
   },
   keys = function()
     local builtin = require("telescope.builtin")
+    local themes = require("telescope.themes")
 
     local function find_hidden_files()
       builtin.find_files { hidden = true, file_ignore_patterns = { ".git/" } }
     end
     local function search_current_buffer()
-      builtin.current_buffer_fuzzy_find(require("telescope.themes").get_dropdown { previewer = false, })
+      builtin.current_buffer_fuzzy_find(themes.get_dropdown { previewer = false, })
+    end
+    local function spell_suggest()
+      builtin.spell_suggest(themes.get_cursor())
     end
 
     return {
@@ -29,6 +33,7 @@ return {
       { "<leader>pf", builtin.find_files,                    desc = "[P]roject [f]iles" },
       { "<leader>ph", find_hidden_files,                     desc = "[P]roject files (+[h]idden)" },
       { "<leader>/",  search_current_buffer,                 desc = "Fuzzy search current buffer" },
+      { "z=",         spell_suggest,                         desc = "Spelling suggestions" },
       { "<C-p>",      builtin.git_files,                     desc = "Goto [p]roject git files" },
       { "<leader>pg", builtin.live_grep,                     desc = "[P]roject live [g]rep" },
       {
