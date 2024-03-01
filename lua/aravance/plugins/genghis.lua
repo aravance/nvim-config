@@ -5,7 +5,7 @@ return {
     {
       "stevearc/dressing.nvim",
       opts = {},
-      config = function()
+      init = function()
         local cmp = require("cmp")
         cmp.setup.filetype("DressingInput", {
           sources = cmp.config.sources { { name = "omni" } }
