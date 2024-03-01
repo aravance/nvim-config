@@ -3,8 +3,8 @@ return {
   name = "moonfly",
   lazy = false,
   priority = 1000,
-  config = function()
+  init = function()
     vim.g.moonflyTransparent = true
     vim.cmd [[colorscheme moonfly]]
-  end
+  end,
 }
