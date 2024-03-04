@@ -4,6 +4,9 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
+  init = function()
+    vim.opt.showmode = false
+  end,
   opts = {
     options = {
       component_separators = "|",
