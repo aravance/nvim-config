@@ -26,6 +26,7 @@ return {
           function(server_name)
             require("lspconfig")[server_name].setup {
               on_attach = function()
+                ---@diagnostic disable: undefined-global
                 if work_lsp_on_attach then
                   work_lsp_on_attach()
                 end
