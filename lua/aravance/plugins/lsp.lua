@@ -1,6 +1,7 @@
-if vim.loop.os_uname().sysname == "Darwin" then
+if jit.os == "OSX" then
   local lsp_vault_file = vim.fn.expand("~") .. "/vaults/work/lsp.lua"
-  local stat = vim.loop.fs_stat(lsp_vault_file)
+  ---@diagnostic disable-next-line: undefined-field
+  local stat = vim.uv.fs_stat(lsp_vault_file)
   if stat and stat.type == "file" then
     dofile(lsp_vault_file)
   end
@@ -12,42 +13,19 @@ return {
   dependencies = {
     -- Neovim lua support
     -- do this first to make sure it's setup before the lsp
-    { "folke/neodev.nvim",       event = "VeryLazy", opts = {} },
+    { "folke/lazydev.nvim",                event = "VeryLazy", opts = {} },
 
     -- LSP Support
     "stevearc/conform.nvim",
-    { "j-hui/fidget.nvim",       event = "VeryLazy", opts = {} },
-    { "williamboman/mason.nvim", event = "VeryLazy", opts = {} },
-    {
-      "williamboman/mason-lspconfig.nvim",
-      event = "VeryLazy",
-      opts = {
-        handlers = {
-          function(server_name)
-            require("lspconfig")[server_name].setup {
-              on_attach = function()
-                ---@diagnostic disable: undefined-global
-                if work_lsp_on_attach then
-                  work_lsp_on_attach()
-                end
-              end,
-              capabilities = vim.tbl_deep_extend(
-                "force",
-                {},
-                vim.lsp.protocol.make_client_capabilities(),
-                require("cmp_nvim_lsp").default_capabilities()
-              ),
-            }
-          end,
-        },
-      },
-    },
+    { "j-hui/fidget.nvim",                 event = "VeryLazy", opts = {} },
+    { "williamboman/mason.nvim",           event = "VeryLazy", opts = {} },
+    { "williamboman/mason-lspconfig.nvim", event = "VeryLazy", opts = {} },
     {
       "WhoIsSethDaniel/mason-tool-installer.nvim",
       event = "VeryLazy",
       opts = {
         ensure_installed = {
-          "tsserver",
+          "ts_ls",
           "eslint",
           "lua_ls",
           "kotlin_language_server",
@@ -100,15 +78,10 @@ return {
   config = function()
     vim.filetype.add({ extension = { templ = "templ" } })
 
-    -- add kotlin workspace detection
-    local lspconfig = require("lspconfig")
-    lspconfig.kotlin_language_server.setup {
-      workspaceFolders = true,
-      root_dir = lspconfig.util.root_pattern(
-        "packageInfo",
-        { "settings.gradle", "settings.gradle.kts" },
-        { "build.gradle", "build.gradle.kts" }
-      ) or vim.fn.getcwd(),
-    }
+    ---@diagnostic disable-next-line: undefined-global
+    if work_lsp_config then
+      ---@diagnostic disable-next-line: undefined-global
+      work_lsp_config()
+    end
   end,
 }

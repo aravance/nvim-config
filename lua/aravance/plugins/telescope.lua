@@ -61,6 +61,18 @@ return {
   end,
   opts = {
     defaults = {
+      path_display = function(_, path)
+        -- TODO add support for line details while grepping
+        -- it's probably in the opts param to the function
+        local tail = require("telescope.utils").path_tail(path)
+        local fmt
+        if string.find(path, "tst") or string.find(path, "test") then
+          fmt = "T- %s (%s)"
+        else
+          fmt = "%s (%s)"
+        end
+        return string.format(fmt, tail, path)
+      end,
       mappings = {
         i = {
           ["<C-y>"] = require("telescope.actions").select_default,
