@@ -1,6 +1,5 @@
 if jit.os == "OSX" then
   local lsp_vault_file = vim.fn.expand("~") .. "/vaults/work/lsp.lua"
-  ---@diagnostic disable-next-line: undefined-field
   local stat = vim.uv.fs_stat(lsp_vault_file)
   if stat and stat.type == "file" then
     dofile(lsp_vault_file)
@@ -13,7 +12,15 @@ return {
   dependencies = {
     -- Neovim lua support
     -- do this first to make sure it's setup before the lsp
-    { "folke/lazydev.nvim",                event = "VeryLazy", opts = {} },
+    {
+      "folke/lazydev.nvim",
+      event = "VeryLazy",
+      opts = {
+        library = {
+          { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+        },
+      },
+    },
 
     -- LSP Support
     "stevearc/conform.nvim",
