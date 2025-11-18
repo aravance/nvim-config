@@ -63,7 +63,7 @@ return {
     defaults = {
       path_display = {
         "filename_first",
-      }
+      },
       mappings = {
         i = {
           ["<C-y>"] = require("telescope.actions").select_default,
