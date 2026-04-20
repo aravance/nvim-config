@@ -5,6 +5,7 @@ return {
   dependencies = {
     { "nvim-lua/plenary.nvim",       event = "VeryLazy" }, -- Required
     { "nvim-tree/nvim-web-devicons", event = "VeryLazy" }, -- Optional
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make", event = "VeryLazy" },
   },
   keys = function()
     local builtin = require("telescope.builtin")
