@@ -2,8 +2,7 @@ return {
   "theprimeagen/refactoring.nvim",
   event = "VeryLazy",
   dependencies = {
-    { "nvim-lua/plenary.nvim" },
-    { "nvim-treesitter/nvim-treesitter" },
+    { "lewis6991/async.nvim" },
   },
   keys = function()
     local refactoring = require("refactoring")
