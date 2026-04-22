@@ -1,13 +1,14 @@
 return {
   "nvim-telescope/telescope.nvim",
-  version = "0.1.x",
+  version = "0.2.x",
   event = "VeryLazy",
   dependencies = {
-    { "nvim-lua/plenary.nvim",       event = "VeryLazy" }, -- Required
-    { "nvim-tree/nvim-web-devicons", event = "VeryLazy" }, -- Optional
-    { "nvim-telescope/telescope-fzf-native.nvim", build = "make", event = "VeryLazy" },
+    { "nvim-lua/plenary.nvim",                    event = "VeryLazy" },                 -- Required
+    { "nvim-tree/nvim-web-devicons",              event = "VeryLazy" },                 -- Optional
+    { "nvim-telescope/telescope-fzf-native.nvim", event = "VeryLazy", build = "make" }, -- Optional
   },
   keys = function()
+    require("telescope").load_extension("fzf")
     local builtin = require("telescope.builtin")
     local themes = require("telescope.themes")
 
