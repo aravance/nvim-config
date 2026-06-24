@@ -35,7 +35,7 @@ return {
           "ts_ls",
           "eslint",
           "lua_ls",
-          "kotlin_language_server",
+          "kotlin_lsp",
           "ktlint",
           "gopls",
           "goimports",
