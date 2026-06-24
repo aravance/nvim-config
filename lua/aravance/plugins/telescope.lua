@@ -43,7 +43,7 @@ return {
         function()
           builtin.grep_string { search = vim.fn.expand("<cword>") }
         end,
-        desc = "[P]roject search for current [w]ord"
+        desc = "[P]roject search for current [w]ord",
       },
       {
         "<leader>pW",
